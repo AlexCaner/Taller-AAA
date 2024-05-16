@@ -9,8 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="logo_projectedaw-removebg.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Dades\" />
     <Folder Include="Vista\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="logo_projectedaw-removebg.png" />
   </ItemGroup>
 
 </Project>

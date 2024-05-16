@@ -11,6 +11,8 @@ namespace Programa.Classes
         //Atributs i Propietats
         public string tipusMoto {  get; set; }
         public int potencia {  get; set; }
-        public string tipusMotor {  get; set; }
+
+        //Constructors
+        public Moto():base() { }
     }
 }
