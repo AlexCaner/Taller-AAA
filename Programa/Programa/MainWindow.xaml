@@ -18,8 +18,27 @@
         <Grid HorizontalAlignment="Left" Height="434" VerticalAlignment="Center" Width="148" Background="White">
             <Image x:Name="img_main_logo" HorizontalAlignment="Left" Height="63" Margin="42,10,0,0" VerticalAlignment="Top" Width="68" Source="/logo_projectedaw-removebg.png"/>
             <Label Content="MOTORS&#xA;  A.A.A" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" Width="60" FontFamily="Modern No. 20"/>
+            <Button Content="NOTIFICACIONS" HorizontalAlignment="Center" Margin="0,129,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
+            <Button Content="HISTORIAL" HorizontalAlignment="Left" Margin="29,164,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
+            <Button Content="FACTURES" HorizontalAlignment="Left" Margin="29,201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
         </Grid>
-        
+        <TabControl Background="#FFF4ECE1"  Style="{DynamicResource TabControlStyle}" Margin="244,81,160,80">
+            <TabItem x:Name="Notificacions" Visibility="Hidden" Style="{DynamicResource TabItemStyle}">
+                <DataGrid Background="Transparent">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Asumpte" Width="280">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Asumpte}" TextWrapping="Wrap" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem x:Name="Historial" Visibility="Hidden" Style="{DynamicResource TabItemStyle}"></TabItem>
+            <TabItem x:Name="Factures" Visibility="Hidden" Style="{DynamicResource TabItemStyle}"></TabItem>
+        </TabControl>
     </Grid>
-    
+
 </Window>
