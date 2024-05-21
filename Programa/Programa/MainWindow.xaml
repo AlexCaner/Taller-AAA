@@ -13,8 +13,8 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}" x:Class="Programa.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="#FFF4ECE1">
+        Title="GRIDNOTIFICACIONS" Height="450" Width="800">
+    <Grid x:Name="grid_noti_" Background="#FFF4ECE1">
         <Grid HorizontalAlignment="Left" Height="434" VerticalAlignment="Center" Width="148" Background="White">
             <Image x:Name="img_main_logo" HorizontalAlignment="Left" Height="63" Margin="42,10,0,0" VerticalAlignment="Top" Width="68" Source="/logo_projectedaw-removebg.png"/>
             <Label Content="MOTORS&#xA;  A.A.A" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" Width="60" FontFamily="Modern No. 20"/>
@@ -22,23 +22,41 @@
             <Button Content="HISTORIAL" HorizontalAlignment="Left" Margin="29,164,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
             <Button Content="FACTURES" HorizontalAlignment="Left" Margin="29,201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
         </Grid>
-        <TabControl Background="#FFF4ECE1"  Style="{DynamicResource TabControlStyle}" Margin="244,81,160,80">
-            <TabItem x:Name="Notificacions" Visibility="Hidden" Style="{DynamicResource TabItemStyle}">
-                <DataGrid Background="Transparent">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Asumpte" Width="280">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Asumpte}" TextWrapping="Wrap" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-            <TabItem x:Name="Historial" Visibility="Hidden" Style="{DynamicResource TabItemStyle}"></TabItem>
-            <TabItem x:Name="Factures" Visibility="Hidden" Style="{DynamicResource TabItemStyle}"></TabItem>
-        </TabControl>
+
+        <DataGrid Name="dtg_noti_1" Background="Transparent" Margin="180,67,210,128">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="280">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Asumpte}" TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Name="noti_btn_llegit" Style="{StaticResource noti_btn}" Tag="/Resources/icon_read.png" Click="NotiBtnLlegit_Click" Margin="0,0,5,0">
+                                    <TextBlock Text="1" />
+                                </Button>
+                                <Button Name="noti_btn_nollegit" Style="{StaticResource noti_btn}" Tag="/Resources/icon_unread.png" Click="NotiBtnNoLlegit_Click" Margin="0,0,5,0">
+                                    <TextBlock Text="2" />
+                                </Button>
+                                <Button Name="noti_btn_eliminar" Style="{StaticResource noti_btn}" Tag="/Resources/icon_delete.png" Click="NotiBtnEliminar_Click">
+                                    <TextBlock Text="3" />
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <RadioButton Name="rdb_noti_2" Content="No Llegides" HorizontalAlignment="Left" Margin="623,141,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton Name="rdb_noti_1" Content="Llegides" HorizontalAlignment="Left" Margin="623,121,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="txtb_noti_cercador"  HorizontalAlignment="Left" Margin="623,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Name="btn_noti_cercador" Content="Search" HorizontalAlignment="Left" Margin="748,167,0,0" VerticalAlignment="Top" Click="btn_noti_cercador_Click"/>
     </Grid>
 
 </Window>
