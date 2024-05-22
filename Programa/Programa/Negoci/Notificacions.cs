@@ -10,7 +10,7 @@ namespace Programa.Negoci
     internal class Notificacions : IEnumerable<Notificacio>
     {
         //Atributs i Propietats
-        List<Notificacio> notificacions {  get; set; }
+        List<Notificacio> notificacions { get; set; }
 
         //Constructors
         public Notificacions()
@@ -48,5 +48,4 @@ namespace Programa.Negoci
             return notificacions.GetEnumerator();
         }
     }
-}
 }

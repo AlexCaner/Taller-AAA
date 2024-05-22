@@ -23,28 +23,28 @@
             <Button Content="FACTURES" HorizontalAlignment="Left" Margin="29,201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
         </Grid>
 
-        <DataGrid Name="dtg_noti_1" Background="Transparent" Margin="180,67,210,128">
+        <DataGrid Name="dtg_noti_1" Margin="180,67,29,128" AutoGenerateColumns="False" Background="Transparent" CanUserResizeColumns="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="280">
+                <DataGridTemplateColumn Width="350">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Asumpte}" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding descripcio}" TextWrapping="Wrap" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="150">
+                <DataGridTemplateColumn Width="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Name="noti_btn_llegit" Style="{StaticResource noti_btn}" Tag="/Resources/icon_read.png" Click="NotiBtnLlegit_Click" Margin="0,0,5,0">
-                                    <TextBlock Text="1" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Name="noti_btn_llegit" Style="{StaticResource noti_btn}" Tag="/Estils/read.png" Click="NotiBtnLlegit_Click" Margin="0,0,5,0">
+                                    <TextBlock Text="UR"/>
                                 </Button>
-                                <Button Name="noti_btn_nollegit" Style="{StaticResource noti_btn}" Tag="/Resources/icon_unread.png" Click="NotiBtnNoLlegit_Click" Margin="0,0,5,0">
-                                    <TextBlock Text="2" />
+                                <Button Name="noti_btn_nollegit" Style="{StaticResource noti_btn}" Tag="/Estils/unread.png" Click="NotiBtnNoLlegit_Click" Margin="0,0,5,0">
+                                    <TextBlock Text="R" />
                                 </Button>
-                                <Button Name="noti_btn_eliminar" Style="{StaticResource noti_btn}" Tag="/Resources/icon_delete.png" Click="NotiBtnEliminar_Click">
-                                    <TextBlock Text="3" />
+                                <Button Name="noti_btn_eliminar" Style="{StaticResource noti_btn}" Tag="/Estils/delete.png" Click="NotiBtnEliminar_Click">
+                                    <TextBlock Text="X"/>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
@@ -52,11 +52,12 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <RadioButton Name="rdb_noti_2" Content="No Llegides" HorizontalAlignment="Left" Margin="623,141,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="rdb_noti_2" Content="No Llegides" HorizontalAlignment="Left" Margin="184,351,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton Name="rdb_noti_1" Content="Llegides" HorizontalAlignment="Left" Margin="623,121,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="txtb_noti_cercador"  HorizontalAlignment="Left" Margin="623,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Name="btn_noti_cercador" Content="Search" HorizontalAlignment="Left" Margin="748,167,0,0" VerticalAlignment="Top" Click="btn_noti_cercador_Click"/>
+        <RadioButton Name="rdb_noti_1" Content="Llegides" HorizontalAlignment="Left" Margin="184,331,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="txtb_noti_cercador"  HorizontalAlignment="Left" Margin="184,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Name="btn_noti_cercador" Content="Search" HorizontalAlignment="Left" Margin="309,377,0,0" VerticalAlignment="Top" Click="btn_noti_cercador_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="496,382,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
     </Grid>
 
 </Window>
