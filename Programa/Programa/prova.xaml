@@ -1,0 +1,40 @@
+﻿<Window x:Class="Programa.prova"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Programa"
+        mc:Ignorable="d"
+        Title="" Height="202" Width="300">
+    <Grid Margin="10,47,-110,-79">
+        <Label x:Name="lbl_inci_1" Content="AFEGIR INCIDÈNCIA" HorizontalAlignment="Left" Margin="85,-25,0,0" VerticalAlignment="Top" FontFamily="Dubai" FontWeight="Bold"/>
+        <TextBox Name="txtb_usr" HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="Usuari" VerticalAlignment="Top" Width="120" FontFamily="Dubai">
+            <TextBox.Effect>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
+            </TextBox.Effect>
+        </TextBox>
+        <TextBox Name="txtb_matricula" HorizontalAlignment="Left" Margin="149,0,0,186" TextWrapping="Wrap" Text="Matricula" VerticalAlignment="Bottom" Width="120" FontFamily="Dubai">
+            <TextBox.Effect>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
+            </TextBox.Effect>
+        </TextBox>
+        <TextBox Name="txtb_descripcio" HorizontalAlignment="Left" Margin="20,37,0,0" TextWrapping="Wrap" Text="Descripció" VerticalAlignment="Top" Width="247" FontFamily="Dubai" Height="38">
+            <TextBox.Effect>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
+            </TextBox.Effect>
+        </TextBox>
+        <ComboBox Name="cmbox_estat" HorizontalAlignment="Left" Margin="20,88,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBox.Effect>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
+            </ComboBox.Effect>
+            <ComboBoxItem Content="En Reparació"/>
+            <ComboBoxItem Content="Reparat"/>
+            <ComboBoxItem Content="En Tràmit"/>
+        </ComboBox>
+        <Button x:Name="btn_inci_1" Content="Afegir" HorizontalAlignment="Left" Margin="149,88,0,0" VerticalAlignment="Top" Width="120" Height="22" FontFamily="Dubai" FontWeight="Bold" BorderBrush="Black" Background="White" Click="btn_inci_1_Click">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
+            </Button.Effect>
+        </Button>
+    </Grid>
+</Window>
