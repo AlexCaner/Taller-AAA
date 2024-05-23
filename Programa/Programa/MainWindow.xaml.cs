@@ -25,12 +25,12 @@ namespace Programa
             InitializeComponent();
             llistanotificacions = new Notificacions(); //
             llistaFiltreNotificacions = new Notificacions();
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < 6; i++)
             {
                 Notificacio n = new Notificacio("hola");
                 llistanotificacions.Add(n);
             }
-
+            llistaFiltreNotificacions = llistanotificacions;
             dtg_noti_1.ItemsSource = llistanotificacions;
         }
 
