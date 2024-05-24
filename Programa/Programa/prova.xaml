@@ -5,36 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Programa"
         mc:Ignorable="d"
-        Title="" Height="202" Width="300">
-    <Grid Margin="10,47,-110,-79">
-        <Label x:Name="lbl_inci_1" Content="AFEGIR INCIDÈNCIA" HorizontalAlignment="Left" Margin="85,-25,0,0" VerticalAlignment="Top" FontFamily="Dubai" FontWeight="Bold"/>
-        <TextBox Name="txtb_usr" HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="Usuari" VerticalAlignment="Top" Width="120" FontFamily="Dubai">
-            <TextBox.Effect>
-                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
-            </TextBox.Effect>
-        </TextBox>
-        <TextBox Name="txtb_matricula" HorizontalAlignment="Left" Margin="149,0,0,186" TextWrapping="Wrap" Text="Matricula" VerticalAlignment="Bottom" Width="120" FontFamily="Dubai">
-            <TextBox.Effect>
-                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
-            </TextBox.Effect>
-        </TextBox>
-        <TextBox Name="txtb_descripcio" HorizontalAlignment="Left" Margin="20,37,0,0" TextWrapping="Wrap" Text="Descripció" VerticalAlignment="Top" Width="247" FontFamily="Dubai" Height="38">
-            <TextBox.Effect>
-                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
-            </TextBox.Effect>
-        </TextBox>
-        <ComboBox Name="cmbox_estat" HorizontalAlignment="Left" Margin="20,88,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBox.Effect>
-                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
-            </ComboBox.Effect>
+        Title="" Height="350" Width="450" Background="#2E333A">
+    <Grid Margin="-5,0,5,0">
+        <Label x:Name="lbl_inci_1" Content="AFEGIR INCIDÈNCIA" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontFamily="Dubai" Foreground="White" FontWeight="Bold"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_usr" HorizontalAlignment="Left" Margin="33,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Dubai" Height="30"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_matricula" HorizontalAlignment="Left" Margin="163,0,0,241" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="120" FontFamily="Dubai" Height="30"/>
+
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_marca" HorizontalAlignment="Left" Margin="293,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Dubai" Height="30"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_model" HorizontalAlignment="Left" Margin="293,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Dubai" Height="30"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_kilometratge" HorizontalAlignment="Left" Margin="33,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Dubai" Height="30"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_anyfabricacio" HorizontalAlignment="Left" Margin="293,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Dubai" Height="30"/>
+
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_descripcio" HorizontalAlignment="Left" Margin="33,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251" FontFamily="Dubai" Height="76"/>
+
+        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_tipusMotor" HorizontalAlignment="Center" Margin="0,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Dubai" Height="30"/>
+        <ComboBox Name="cmbox_estat" HorizontalAlignment="Left" Margin="293,171,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem Content="En Reparació"/>
             <ComboBoxItem Content="Reparat"/>
             <ComboBoxItem Content="En Tràmit"/>
         </ComboBox>
-        <Button x:Name="btn_inci_1" Content="Afegir" HorizontalAlignment="Left" Margin="149,88,0,0" VerticalAlignment="Top" Width="120" Height="22" FontFamily="Dubai" FontWeight="Bold" BorderBrush="Black" Background="White" Click="btn_inci_1_Click">
-            <Button.Effect>
-                <DropShadowEffect ShadowDepth="2" BlurRadius="2" Direction="-50"/>
-            </Button.Effect>
+        <Button x:Name="btn_inci_1" Style="{StaticResource boton}" Content="Afegir" HorizontalAlignment="Center" Margin="0,263,0,0" VerticalAlignment="Top" Width="204" Height="22" FontFamily="Dubai" FontWeight="Bold" BorderBrush="Black" Background="White" Click="btn_inci_1_Click">
         </Button>
+        <Label Content="Usuari" HorizontalAlignment="Left" Margin="33,40,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Matricula" HorizontalAlignment="Left" Margin="164,40,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Marca" HorizontalAlignment="Left" Margin="293,40,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Kilometratge" HorizontalAlignment="Left" Margin="33,94,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Tipus de Motor" HorizontalAlignment="Left" Margin="164,96,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Model" HorizontalAlignment="Left" Margin="293,96,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Descripció" HorizontalAlignment="Left" Margin="33,148,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Estat" HorizontalAlignment="Left" Margin="289,148,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Label Content="Any Fabricació" HorizontalAlignment="Left" Margin="293,193,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+
     </Grid>
 </Window>

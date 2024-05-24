@@ -1,4 +1,5 @@
-﻿using Programa.Negoci;
+﻿using Programa.Classes;
+using Programa.Negoci;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,14 @@ namespace Programa
         private void btn_inci_1_Click(object sender, RoutedEventArgs e)
         {
             Incidencia incidencia = new Incidencia(txtb_usr.Text, txtb_matricula.Text, txtb_descripcio.Text, cmbox_estat.Text);
-
+            int i; 
+            int.TryParse(txtb_kilometratge.Text, out i);
+            DateTime dataFab;
+            DateTime.TryParse(txtb_anyfabricacio.Text, out dataFab);
+            Vehicle vehicle = new Vehicle(txtb_matricula.Text, txtb_marca.Text, txtb_model.Text, i, dataFab, txtb_tipusMotor.Text);
+            //Incidencia se añade a la tabla incidencias de la BD
+            //Vehicle se añade a la tabla vehicles de la BD
+            //MessageBox Confirmando
         }
     }
 }

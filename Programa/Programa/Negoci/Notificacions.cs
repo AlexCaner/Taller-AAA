@@ -22,7 +22,10 @@ namespace Programa.Negoci
         {
             notificacions.Add(notificacio);
         }
-
+        public int Count()
+        {
+            return notificacions.Count;
+        }
         public bool Remove(Notificacio notificacio)
         {
             return notificacions.Remove(notificacio);
@@ -35,7 +38,11 @@ namespace Programa.Negoci
         }
         public void RemoveAll()
         {
-            this.RemoveAll();
+            List<Notificacio> itemsToRemove = new List<Notificacio>(notificacions);
+            foreach (var item in itemsToRemove)
+            {
+                notificacions.Remove(item);
+            }
         }
         // Implementación de IEnumerable<Notificacio>
         public IEnumerator<Notificacio> GetEnumerator()

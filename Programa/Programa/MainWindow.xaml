@@ -53,13 +53,16 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <!--Radio Buttons-->
+        <RadioButton Name="rdb_noti_2" Content="No Llegides" HorizontalAlignment="Left" Margin="184,370,0,0" VerticalAlignment="Top" Background="White" BorderBrush="White" Foreground="White"/>
+        <RadioButton Name="rdb_noti_1" Content="Llegides" HorizontalAlignment="Left" Margin="184,350,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+        <RadioButton Name="rdb_noti_3" Content="Totes" HorizontalAlignment="Left" Margin="184,330,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
 
-        <RadioButton Name="rdb_noti_2" Content="No Llegides" HorizontalAlignment="Left" Margin="184,351,0,0" VerticalAlignment="Top" Background="White" BorderBrush="White" Foreground="White"/>
-
-        <RadioButton Name="rdb_noti_1" Content="Llegides" HorizontalAlignment="Left" Margin="184,331,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox Name="txtb_noti_cercador" HorizontalAlignment="Left" Margin="184,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Style="{StaticResource boton}" Name="btn_noti_cercador" Content="Search" HorizontalAlignment="Left" Margin="309,375,0,0" VerticalAlignment="Top" Click="btn_noti_cercador_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="496,382,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <!--Cerca-->
+        <TextBox  Style="{StaticResource TextBoxStyle}" Name="txtb_noti_cercador" HorizontalAlignment="Left" Margin="184,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="120"/>
+        <Button Style="{StaticResource boton}" Name="btn_noti_cercador" Content="Search" HorizontalAlignment="Left" Margin="309,394,0,0" VerticalAlignment="Top" Click="btn_noti_cercador_Click"/>
+        
+        <Button Content="Button" Style="{StaticResource boton}" HorizontalAlignment="Left" Margin="496,382,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
     </Grid>
 
 </Window>

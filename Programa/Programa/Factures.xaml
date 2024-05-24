@@ -7,6 +7,25 @@
         mc:Ignorable="d"
         Title="Factures" Height="450" Width="800">
     <Grid>
-        
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,0,0,-6" Background="#2E333A">
+            <ItemsControl x:Name="IncidenciasItemsControl" Width="800">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="White" Background="#2E333A" BorderThickness="5" Margin="5" Padding="10" Width="200" CornerRadius="10">
+                            <StackPanel>
+                                <TextBlock Text="{Binding matricula}" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="White"/>
+                                <TextBlock Text="{Binding descripcio}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="White"/>
+                                <Button Style="{StaticResource boton_quadrado}" Content="Descarregar"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>

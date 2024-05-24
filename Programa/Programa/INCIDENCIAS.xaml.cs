@@ -26,11 +26,12 @@ namespace Programa
         {
             if (sender is FrameworkElement element && element.DataContext is Incidencia incidencia)
             {
+                //MessageBox Preguntando si de verdad quiere hacerlo
                 Incidencias.Remove(incidencia);
             }
             IncidenciasItemsControl.ItemsSource = "";
             IncidenciasItemsControl.ItemsSource = Incidencias;
-
+            //MessageBox Confirmando
         }
 
         private void Accion2_Click(object sender, RoutedEventArgs e) //Esto hay que mirarlo
@@ -38,8 +39,10 @@ namespace Programa
             string estatReparacio = "";
             if (sender is FrameworkElement element && element.DataContext is Incidencia incidencia)
             {
+                //Aqui hay que poner que pille lo del ComboBox
                 estatReparacio =  "" + incidencia.matricula;
                 Notificacio notificacio = new Notificacio(incidencia.usuari, incidencia.matricula, estatReparacio);
+                //MessageBox Confirmando
             }
         }
     }
