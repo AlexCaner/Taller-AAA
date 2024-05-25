@@ -1,0 +1,114 @@
+﻿<Window x:Class="Programa.Historial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Programa.Vista"
+        mc:Ignorable="d"
+        Title="Historial" Height="624" Width="1042"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <Window.Resources>
+        <Style TargetType="DataGrid">
+            <Setter Property="FontFamily" Value="Bahnschrift"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="RowBackground" Value="#FF7A7F86"/>
+            <Setter Property="AlternatingRowBackground" Value="#FF5A626D"/>
+            <Setter Property="VerticalGridLinesBrush" Value="White"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#FF5A626D"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#FF5A626D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFF4ECE1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#2E333A" Margin="0,0,0,-6">
+        <Grid HorizontalAlignment="Left" Height="614" VerticalAlignment="Center" Width="148" Background="White">
+            <Label Content="MOTORS&#xA;  A.A.A" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" Width="60" FontFamily="Modern No. 20"/>
+            <Button Content="NOTIFICACIONS" HorizontalAlignment="Center" Margin="0,129,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
+            <Button Content="HISTORIAL" HorizontalAlignment="Left" Margin="29,164,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
+            <Button Content="FACTURES" HorizontalAlignment="Left" Margin="29,201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Dubai" FontWeight="Bold"/>
+        </Grid>
+
+        <Grid Margin="153,10,17,-10">
+
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Foreground="White" FontFamily="Cascadia Code" FontSize="30" Text="HISTORIAL DE INCIDÈNCIES" VerticalAlignment="Top" Margin="10,25,-10,0"/>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="10,407,-10,0">
+                <TextBlock Foreground="White" FontFamily="Cascadia Code" FontSize="18" Text="MATRICULA" VerticalAlignment="Center"/>
+                <TextBox x:Name="txt_Filtrar_Matricula" Height="22" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="114"/>
+            </StackPanel>
+
+            <DataGrid Grid.Column="0" AutoGenerateColumns="False" x:Name="dgHistorial" Margin="0,65,167,212" BorderBrush="#FF2E333A">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="130" Header="ID INCIDENCIA">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding idIncidencia}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="115" Header="MATRICULA">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding matricula}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="313" Header="DESCRIPCIO">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding descripcio}" Height="50" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="115" Header="ESTAT">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding estat}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button Grid.Column="0" Style="{StaticResource boton}" x:Name="btn_Filtrar" Click="btn_Filtrar_Click" Content="FILTRAR" HorizontalAlignment="Left" Height="22" Margin="114,434,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold"/>
+
+            <StackPanel VerticalAlignment="Top" Margin="740,121,10,0">
+                <RadioButton Content="Aberiat" x:Name="rb_Abert" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+                <RadioButton Content="Reparacio" x:Name="rb_Reparacio" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+                <RadioButton Content="Acabat" x:Name="rb_Acabado" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+                <RadioButton Content="Todos" x:Name="rb_Todos" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
