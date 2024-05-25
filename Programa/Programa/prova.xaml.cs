@@ -29,14 +29,26 @@ namespace Programa
         private void btn_inci_1_Click(object sender, RoutedEventArgs e)
         {
             Incidencia incidencia = new Incidencia(txtb_usr.Text, txtb_matricula.Text, txtb_descripcio.Text, cmbox_estat.Text);
-            int i; 
+            Notificacio noti = new Notificacio(incidencia.usuari, incidencia.matricula, incidencia.descripcio);
+            int i;
             int.TryParse(txtb_kilometratge.Text, out i);
+
             DateTime dataFab;
             DateTime.TryParse(txtb_anyfabricacio.Text, out dataFab);
+
             Vehicle vehicle = new Vehicle(txtb_matricula.Text, txtb_marca.Text, txtb_model.Text, i, dataFab, txtb_tipusMotor.Text);
-            //Incidencia se añade a la tabla incidencias de la BD
-            //Vehicle se añade a la tabla vehicles de la BD
-            //MessageBox Confirmando
+
+            //Afegir la incidència a la taula incidències de la BD
+            //Afegir el vehicle a la taula vehicles de la BD
+            //Afegir la notificacio a la taula BD
+
+            // Mostrar un missatge confirmant la creació de la incidència i el vehicle
+            MessageBox.Show(
+                $"La incidència i el vehicle s'han creat correctament.",
+                "Confirmació de creació",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
         }
+
     }
 }

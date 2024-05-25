@@ -26,25 +26,56 @@ namespace Programa
         {
             if (sender is FrameworkElement element && element.DataContext is Incidencia incidencia)
             {
-                //MessageBox Preguntando si de verdad quiere hacerlo
-                Incidencias.Remove(incidencia);
+                MessageBoxResult result = MessageBox.Show(
+                    "¿Estas segur que vols eliminar l'incidencia?",
+                    "Confirmar realitzada.",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Notificacio notificacio = new Notificacio(incidencia.usuari, incidencia.matricula, incidencia.descripcio);
+                    //Inserir BD notificacions
+                    Incidencias.Remove(incidencia);
+                    //Borrar en la BD
+                    IncidenciasItemsControl.ItemsSource = null;
+                    IncidenciasItemsControl.ItemsSource = Incidencias;
+                    MessageBox.Show(
+                        "La incidencia ha sigut eliminada correctament.",
+                        "Eliminació completada",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
             }
-            IncidenciasItemsControl.ItemsSource = "";
-            IncidenciasItemsControl.ItemsSource = Incidencias;
-            //MessageBox Confirmando
         }
 
-        private void Accion2_Click(object sender, RoutedEventArgs e) //Esto hay que mirarlo
+        private void Accion2_Click(object sender, RoutedEventArgs e)
         {
             string estatReparacio = "";
             if (sender is FrameworkElement element && element.DataContext is Incidencia incidencia)
             {
-                //Aqui hay que poner que pille lo del ComboBox
-                estatReparacio =  "" + incidencia.matricula;
+                var stackPanel = element.Parent as StackPanel;
+                if (stackPanel != null)
+                {
+                    // Trobar el ComboBox dins el StackPanel
+                    var comboBox = stackPanel.Children
+                        .OfType<ComboBox>()
+                        .FirstOrDefault();
+                    if (comboBox != null && comboBox.SelectedItem is ComboBoxItem selectedItem)
+                    {
+                        estatReparacio = selectedItem.Content.ToString();
+                    }
+                }
+
+                // Crear una nova notificació
                 Notificacio notificacio = new Notificacio(incidencia.usuari, incidencia.matricula, estatReparacio);
-                //MessageBox Confirmando
+
+                // Mostra un quadre de missatge confirmant la notificació
+                MessageBox.Show($"La notificació s'ha creat correctament.", "Confirmació de notificació", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+
     }
 }
 

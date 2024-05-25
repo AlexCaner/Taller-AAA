@@ -43,17 +43,15 @@ namespace Programa
             if (sender is Button button)
             {
                 var notifiacio = button.DataContext as Notificacio;
-                if (notifiacio != null && notifiacio.llegida == false)
+                if (notifiacio != null && !notifiacio.llegida)
                 {
                     notifiacio.llegida = true;
-                    //No se si se tendria que actualizar la base de datos aqui
+                    //Update en la base de datos
                     RadioButtonsComprovar();
                     dtg_noti_1.ItemsSource = "";
                     dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
                 }
-                else MessageBox.Show("Notificacio ja marcada com llegida.");
-                //Refrescar el data grid (Creo que habria que hacer un metodo para esto solo)
-    
+                else MessageBox.Show("Notificacio ja marcada com llegida.");    
             }
         }
         private void RadioButtonsComprovar()
@@ -64,7 +62,7 @@ namespace Programa
             {
                 foreach (Notificacio n in llistanotificacions)
                 {
-                    if (!n.llegida) //No se si habria que quitar el nollegida de atributo, no tiene mucho sentido
+                    if (!n.llegida) 
                     {
                         llistaFiltreNotificacions.Add(n);
                     }
@@ -93,7 +91,7 @@ namespace Programa
                 if (notifiacio != null && notifiacio.llegida == true)
                 {
                     notifiacio.llegida = false;
-                    //No se si se tendria que actualizar la base de datos aqui
+                    //Update de la notificacion BD (where id == @id)
                     RadioButtonsComprovar();
                     dtg_noti_1.ItemsSource = "";
                     if (rdb_noti_3.IsChecked == true)
@@ -112,11 +110,9 @@ namespace Programa
                 if (notifiacio != null)
                 {
                     llistanotificacions.Remove(notifiacio); //Tengo que mirar si esto se tiene que hacer en base a si es igual con un metodo aparte
-                    //No se si se tendria que actualizar la base de datos aqui
                 }
                 RadioButtonsComprovar();
                 dtg_noti_1.ItemsSource = "";
-
                 if (rdb_noti_3.IsChecked == true)
                     dtg_noti_1.ItemsSource = llistanotificacions;
                 else dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
