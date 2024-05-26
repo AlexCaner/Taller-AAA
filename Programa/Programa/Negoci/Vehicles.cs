@@ -1,4 +1,5 @@
-﻿using Programa.Negoci;
+﻿using Programa.Dades;
+using Programa.Negoci;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,11 +13,22 @@ namespace Programa.Classes
     {
         //Atributs i Propietats
         List<Vehicle> vehicles {  get; set; }
+        VehiclesBD vehiclesBD = new VehiclesBD();
+
 
         //Constructors
         public Vehicles()
         {
             vehicles = new List<Vehicle>();
+        }
+
+        public void TotsElsVehicles()
+        {
+            vehicles = vehiclesBD.TotsElsVehicles();
+        }
+        public void InsertVehicle(string matricula, string marca, string model, int kilometratge, DateTime anyFabriacio, string tipusMotor)
+        {
+            vehiclesBD.InsertarVehicleBDD(matricula, marca, model, kilometratge, anyFabriacio, tipusMotor);
         }
         public IEnumerator<Vehicle> GetEnumerator()
         {

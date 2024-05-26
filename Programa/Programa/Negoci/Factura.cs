@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Xml;
+using System.Xml.Xsl;
 
 namespace Programa.Negocio
 {
     class Factura
     {
         // Propiedades
-        public string FacturaArxiu { get; set; }
+        public int idFactura {  get; set; }
+        public string usuari {  get; set; }
+        public byte[] FacturaArxiu { get; set; }
         public XmlDocument XmlDocument { get; set; }
 
         // Constructor
-        public Factura(string facturaArxiu)
+        public Factura()
         {
-            FacturaArxiu = facturaArxiu;
             XmlDocument = new XmlDocument();
             XmlDocument.AppendChild(XmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null));
         }
@@ -26,9 +28,8 @@ namespace Programa.Negocio
         }
 
         // Método para generar el archivo XML de la factura
-        public void GenerarFacturaXML(string nombreTaller, string direccionTaller, string telefonoTaller, string correoTaller,
-                                      string logoTaller, string nombreCliente, string direccionCliente, string telefonoCliente,
-                                      string correoCliente, string fecha, string numero, string[][] items, string total)
+        public void GenerarFacturaXML(string nombreCliente, string direccionCliente, string telefonoCliente,
+                                      string correoCliente, string fecha, string numero, string costReparacio)
         {
             try
             {
@@ -39,11 +40,11 @@ namespace Programa.Negocio
                 // Agregar nodos para los datos del taller mecánico
                 XmlElement tallerElement = XmlDocument.CreateElement("taller");
                 facturaElement.AppendChild(tallerElement);
-                AddTextNode(tallerElement, "nombre", nombreTaller);
-                AddTextNode(tallerElement, "direccion", direccionTaller);
-                AddTextNode(tallerElement, "telefon", telefonoTaller);
-                AddTextNode(tallerElement, "correu", correoTaller);
-                AddTextNode(tallerElement, "logotip", logoTaller);
+                AddTextNode(tallerElement, "nom", "Taller Mecànic XYZ");
+                AddTextNode(tallerElement, "direccio", "Carrer Fictici, 43");
+                AddTextNode(tallerElement, "telefon", "643424242");
+                AddTextNode(tallerElement, "correu", "correutaller@gmail.com");
+                AddTextNode(tallerElement, "logotip", "logo.png");
 
                 // Agregar nodos para los datos del cliente
                 XmlElement clienteElement = XmlDocument.CreateElement("client");
@@ -59,16 +60,8 @@ namespace Programa.Negocio
                 AddTextNode(detallesFacturaElement, "data", fecha);
                 AddTextNode(detallesFacturaElement, "numero", numero);
 
-                // Agregar nodos para los items de la factura
-                XmlElement itemsElement = XmlDocument.CreateElement("items");
-                facturaElement.AppendChild(itemsElement);
-                foreach (string[] item in items)
-                {
-                    AddItemNode(itemsElement, item[0], item[1], item[2], item[3]);
-                }
-
-                // Agregar el nodo para el total
-                AddTextNode(facturaElement, "total", total);
+                // Agregar el nodo para el coste de reparación
+                AddTextNode(facturaElement, "costReparacio", costReparacio);
 
                 // Guardar el documento XML en un archivo
                 XmlDocument.Save(FacturaArxiu);
@@ -78,16 +71,19 @@ namespace Programa.Negocio
                 Console.WriteLine("Error al generar el archivo XML de la factura: " + ex.Message);
             }
         }
-
-        // Método para agregar un nodo de item a los elementos de item
-        private void AddItemNode(XmlElement parentElement, string descripcion, string cantidad, string precioUnitario, string total)
+        public void TransformarXMLaHTML(string xslPath, string outputHtmlPath)
         {
-            XmlElement itemElement = XmlDocument.CreateElement("item");
-            parentElement.AppendChild(itemElement);
-            AddTextNode(itemElement, "descripcio", descripcion);
-            AddTextNode(itemElement, "quantitat", cantidad);
-            AddTextNode(itemElement, "preuUnitari", precioUnitario);
-            AddTextNode(itemElement, "total", total);
+            try
+            {
+                XslCompiledTransform xslTransform = new XslCompiledTransform();
+                xslTransform.Load(xslPath);
+                xslTransform.Transform(FacturaArxiu, outputHtmlPath);
+                Console.WriteLine("Transformación completada. Archivo HTML generado en: " + outputHtmlPath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al transformar el XML a HTML: " + ex.Message);
+            }
         }
     }
 }

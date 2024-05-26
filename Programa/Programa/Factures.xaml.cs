@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Programa.Classes;
+using Programa.Negoci;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,13 @@ namespace Programa
     /// </summary>
     public partial class Factures : Window
     {
+        //Creem els objectes per gestionar les dades.
+        Incidencias incidencies;
+        Persones persones = new Persones();
         public Factures()
         {
             InitializeComponent();
+
         }
     }
 }

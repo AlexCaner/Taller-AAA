@@ -13,5 +13,14 @@ namespace Programa.Classes
         public static int numMecanics { get; set; }
         //Constructor
         public Mecanic() : base() { }
+        public Mecanic(int idMecanic, string nom, string cognom, string direccio, string correu, int telefon, string usuari) : this()
+        {
+            this.idMecanic = idMecanic;
+            this.nom = nom;
+            this.cognom = cognom;
+            this.direccio = direccio;
+            this.correu = correu;
+            this.telefon = telefon;
+        }
     }
 }

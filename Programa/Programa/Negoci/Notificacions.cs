@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Programa.Dades;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,38 +12,33 @@ namespace Programa.Negoci
     {
         //Atributs i Propietats
         List<Notificacio> notificacions { get; set; }
-
+        NotificacionsBD notificacionsBD = new NotificacionsBD();
         //Constructors
         public Notificacions()
         {
             notificacions = new List<Notificacio>();
         }
-        // Métodos para añadir, eliminar y acceder a las notificaciones
-        public void Add(Notificacio notificacio)
-        {
-            notificacions.Add(notificacio);
-        }
-        public int Count()
-        {
-            return notificacions.Count;
-        }
-        public bool Remove(Notificacio notificacio)
-        {
-            return notificacions.Remove(notificacio);
-        }
 
-        public Notificacio this[int index]
+        // Metodes
+        public void TotesLesNotis()
         {
-            get { return notificacions[index]; }
-            set { notificacions[index] = value; }
+            notificacions = notificacionsBD.TotesLesNoti();
         }
-        public void RemoveAll()
+        public void BorrarTotesLesNotis()
         {
-            List<Notificacio> itemsToRemove = new List<Notificacio>(notificacions);
-            foreach (var item in itemsToRemove)
-            {
-                notificacions.Remove(item);
-            }
+            notificacions = notificacionsBD.BorrarTotesLesNoti();
+        }
+        public void InsertNoti(int llegida, string usuari, string matricula, string descripcio)
+        {
+            notificacionsBD.InsertNotiBDD(llegida, usuari, matricula, descripcio);
+        }
+        public void UpdateNoti(int idNotificacio, int estat)
+        {
+            notificacionsBD.UpdateNotiBDD(idNotificacio, estat);
+        }
+        public void DeleteNoti(int idNotificacio)
+        {
+            notificacionsBD.EliminarNotiBDD(idNotificacio);
         }
         // Implementación de IEnumerable<Notificacio>
         public IEnumerator<Notificacio> GetEnumerator()

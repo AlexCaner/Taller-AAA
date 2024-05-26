@@ -26,9 +26,9 @@ namespace Programa.Negoci
         {
             incidencias = IncidenciasBD.TotesIncidencies();
         }
-        public void InsertIncidencia(int idIncidencia, string usuari, string matricula, string descripcio, string estat)
+        public void InsertIncidencia(string usuari, string matricula, string descripcio, string estat)
         {
-            IncidenciasBD.InsertIncidenciaBDD(idIncidencia, usuari, matricula, descripcio, estat);
+            IncidenciasBD.InsertIncidenciaBDD(usuari, matricula, descripcio, estat);
         }
         public void UpdateIncidencia(int idIncidencia, string usuari, string matricula, string descripcio, string estat)
         {
@@ -39,7 +39,7 @@ namespace Programa.Negoci
             IncidenciasBD.EliminarIncidenciaBDD(idIncidencia);
         }
 
-        // Implementación de IEnumerable<Peça>
+        // Implementació de l'interficie IEnumerable
         public IEnumerator<Incidencia> GetEnumerator()
         {
             return incidencias.GetEnumerator();

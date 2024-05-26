@@ -14,23 +14,22 @@ using System.Windows.Shapes;
 
 namespace Programa
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        //Creem els objectes que gestionaran les llistes de notificacions: totes les notificacions (llistanotificacions) i la llista amb filtres (llistaFiltreNotificacions)
         Notificacions llistanotificacions; Notificacions llistaFiltreNotificacions;
+
         public MainWindow()
         {
             InitializeComponent();
-            llistanotificacions = new Notificacions(); //
+            //Initzialitcem les llistes
+            llistanotificacions = new Notificacions();
             llistaFiltreNotificacions = new Notificacions();
-            for(int i = 0; i < 6; i++)
-            {
-                Notificacio n = new Notificacio("Estat de reparació: :)");
-                llistanotificacions.Add(n);
-            }
-            for(int i = 0; i < llistanotificacions.Count();i++)
+
+            //Inserir en la llista notificacions totes les notificacions de la BD
+            llistanotificacions.TotesLesNotis();
+
+            //Afegir les notificacions en el GRID
             dtg_noti_1.ItemsSource = llistanotificacions;
         }
 
@@ -42,107 +41,136 @@ namespace Programa
         {
             if (sender is Button button)
             {
+                //Creem una nottificacio apuntant al espai de memoria que ocupa en la linia del DataGrid
                 var notifiacio = button.DataContext as Notificacio;
-                if (notifiacio != null && !notifiacio.llegida)
+
+                //Si la notificacio no es null i no esta llegida
+                if (notifiacio != null && notifiacio.llegida == 0)
                 {
-                    notifiacio.llegida = true;
-                    //Update en la base de datos
+                    //Fem un Update en la taula de notificacions en la BD, marcant que s'ha llegit
+                    llistanotificacions.UpdateNoti(notifiacio.idNotificacio, 1);
+
+                    //Actualitzem el GRID en base al RadioButton que estigui pressionat (No me acaba)
                     RadioButtonsComprovar();
+
+                    //Actualitzem el DataGrid
                     dtg_noti_1.ItemsSource = "";
-                    dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
+                    if (rdb_noti_3.IsChecked == true)
+                        dtg_noti_1.ItemsSource = llistanotificacions;
+                    else dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
+
+                    //Inserim totes les notificacions altre vegada a la llista
+                    llistanotificacions.TotesLesNotis();
                 }
+                //Si la notificació ja estava llegida, notificarem a l'usuari amb un MessageBox
                 else MessageBox.Show("Notificacio ja marcada com llegida.");    
             }
         }
         private void RadioButtonsComprovar()
         {
-            llistaFiltreNotificacions.RemoveAll();
+            //Esborrem el contingut de la llista de filtre
+            llistaFiltreNotificacions.BorrarTotesLesNotis();
+
             //Si llegides esta marcada (Filtro)
             if (rdb_noti_1.IsChecked == true)
             {
                 foreach (Notificacio n in llistanotificacions)
                 {
-                    if (!n.llegida) 
+                    if (n.llegida == 0) 
                     {
-                        llistaFiltreNotificacions.Add(n);
+                        llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
                     }
                 }
             }
-            else if(rdb_noti_2.IsChecked == true)//Si esta marcado no llegides (Filtro)
+
+            //Si esta marcado no llegides (Filtro)
+            else if (rdb_noti_2.IsChecked == true)
             {
                 foreach (Notificacio n in llistanotificacions)
                 {
-                    if (n.llegida) //No se si habria que quitar el nollegida de atributo, no tiene mucho sentido
+                    if (n.llegida == 1)
                     {
-                        llistaFiltreNotificacions.Add(n);
+                        llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
                     }
                 }
             }
-            else foreach(Notificacio n in llistanotificacions)
+
+            //Si totes esta marcada (Filtre)
+            else foreach (Notificacio n in llistanotificacions)
                 {
-                    llistaFiltreNotificacions.Add(n);
+                    llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
                 }
         }
+
         private void NotiBtnNoLlegit_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
+                //Creem una nottificacio apuntant al espai de memoria que ocupa en la linia del DataGrid
                 var notifiacio = button.DataContext as Notificacio;
-                if (notifiacio != null && notifiacio.llegida == true)
+
+                //Si la notificacio no es null i no esta llegida
+                if (notifiacio != null && notifiacio.llegida == 1)
                 {
-                    notifiacio.llegida = false;
-                    //Update de la notificacion BD (where id == @id)
+                    //Fem un Update en la taula de notificacions en la BD, marcant que s'ha llegit
+                    llistanotificacions.UpdateNoti(notifiacio.idNotificacio, 0);
+
+                    //Actualitzem el GRID en base al RadioButton que estigui pressionat (No me acaba)
                     RadioButtonsComprovar();
+
                     dtg_noti_1.ItemsSource = "";
                     if (rdb_noti_3.IsChecked == true)
                         dtg_noti_1.ItemsSource = llistanotificacions;
                     else dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
+
+                    //Inserim totes les notificacions altre vegada a la llista
+                    llistanotificacions.TotesLesNotis(); //No se si se tendria que vaciar todo
                 }
+                //Si la notificació ja estava no llegida, notificarem a l'usuari amb un MessageBox
                 else MessageBox.Show("Notificacio ja marcada com no llegida.");
-                //Refrescar el data grid (Creo que habria que hacer un metodo para esto solo)
             }
         }
         private void NotiBtnEliminar_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
+                //Creem una nottificacio apuntant al espai de memoria que ocupa en la linia del DataGrid
                 var notifiacio = button.DataContext as Notificacio;
+
+                //Si la notificació no es vuida
                 if (notifiacio != null)
                 {
-                    llistanotificacions.Remove(notifiacio); //Tengo que mirar si esto se tiene que hacer en base a si es igual con un metodo aparte
+                    //Eliminem la notificació de la BD
+                    llistanotificacions.DeleteNoti(notifiacio.idNotificacio);
                 }
+                
+                //Comprovem els filtres
                 RadioButtonsComprovar();
+
+                //Actualitzem el DataGrid
                 dtg_noti_1.ItemsSource = "";
                 if (rdb_noti_3.IsChecked == true)
                     dtg_noti_1.ItemsSource = llistanotificacions;
                 else dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
-                //Refrescar el data grid (Creo que habria que hacer un metodo para esto solo)
 
             }
         }
-        //private void InserirNotificacions(Notificacions notificacions) //Creo que estos metodos hay que meterlos en una clase | Cogiendo las filas, habria que crear una notificacion nueva con un bucle y meterla dentro de la lista.
-        //{
-        //    //Depeniendo del usuario, meter los datos, hay que mirar como se hacia
-        //    DataRow data = new DataRow(); //Esto hay que hacerlo en el modelo de Dades
-        //    foreach (var data in DataRow)
-        //    {
-        //        Notificacio notificacio = new Notificacio(); //Se coge el string y los dos bools en la base de datos
-        //        llistanotificacions.Add(notificacio);
-        //    }
-        //    //Al final del programa habria que actualizar la base de datos con los datos de las listas
-        //}
-
         private void btn_noti_cercador_Click(object sender, RoutedEventArgs e)
         {
-            llistaFiltreNotificacions.RemoveAll();
+            //Esborrem totes les notificacions de la llista
+            llistaFiltreNotificacions.BorrarTotesLesNotis();
+
+            //Introduim les notificacions en un bucle en la llista de filtre
             foreach (Notificacio n in llistanotificacions)
             {
+                //Si la matricula coincideix amb el text que ha introduit l'usuari, s'insereix en la llista
                 if (n.matricula == txtb_noti_cercador.Text)
                 {
-                    llistaFiltreNotificacions.Add(n);
+                    llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
                 }
             }
-            //Refrescar el data grid (Creo que habria que hacer un metodo para esto solo)
+
+            //Actualitzem el DataGrid
             dtg_noti_1.ItemsSource = "";
             dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
         }

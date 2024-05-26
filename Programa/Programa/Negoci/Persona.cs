@@ -10,7 +10,7 @@ namespace Programa.Classes
     {
         //Atributs i Propietats
         public string nom {  get; set; }
-        public string congom {  get; set; }
+        public string cognom {  get; set; }
         public int telefon { get; set; }
         public string correu {  get; set; }
         public string direccio {  get; set; }

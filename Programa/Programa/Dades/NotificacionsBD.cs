@@ -8,50 +8,57 @@ using System.Threading.Tasks;
 
 namespace Programa.Dades
 {
-    internal class IncidenciasBD
+    internal class NotificacionsBD
     {
+
         ConnexioBD connexio = new ConnexioBD();
-        public List<Incidencia> TotesIncidencies() // Metode Crea LLista de incidencies y ho passa a incidencies
+        public List<Notificacio> TotesLesNoti()
         {
-            List<Incidencia> incidencies = new List<Incidencia>();
+            List<Notificacio> notificacions = new List<Notificacio>();
             MySqlConnection connection = connexio.ConnexioBDD();
             if (connection != null)
             {
                 connection.Open();
-                string sql = $"SELECT * FROM incidencia";
+                string sql = $"SELECT * FROM notificacions";
                 MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    Incidencia incidencia;
-                    incidencia = new Incidencia(Convert.ToInt32(reader["idIncidencia"]), reader["usuari"].ToString(), reader["matricula"].ToString(), reader["descripcio"].ToString(), reader["estat"].ToString());
-                    incidencies.Add(incidencia);
+                    Notificacio notificacio = new Notificacio(Convert.ToInt32(reader["idNotificacio"]), reader["usuari"].ToString(), reader["matricula"].ToString(), Convert.ToInt32(reader["llegida"]), reader["descripcio"].ToString());
+                    notificacions.Add(notificacio);
                 }
                 reader.Close();
                 connection.Close();
             }
-            return incidencies;
+            return notificacions;
         }
-        public void InsertIncidenciaBDD(string usuari, string matricula, string descripcio, string estat)
+        public List<Notificacio> BorrarTotesLesNoti() // Metode Borra LLista de notificacions
         {
-            //Creem la clase per obrir la connexió
+            List<Notificacio> notificacions = new List<Notificacio>();
             MySqlConnection connection = connexio.ConnexioBDD();
-
-            //Si la connexió es correcte
+            if (connection != null)
+            {
+                connection.Open();
+                string sql = $"DELETE * FROM notificacions";
+                MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
+                connection.Close();
+            }
+            return notificacions;
+        }
+        public void InsertNotiBDD(int llegida, string usuari, string matricula, string descripcio)
+        {
+            MySqlConnection connection = connexio.ConnexioBDD();
             if (connection != null)
             {
                 try
                 {
-                    //Obrim la connexió a la Base de Dades
                     connection.Open();
-
-                    //Fem la consulta que necessitem, en aquest cas es un INSERT en la taula peces dels parametres que hem passat.
-                    string sql = $"INSERT INTO peces (usuari, matricula, descripcio, estat) VALUES (@usuari, @matricula, @descripcio, @estat)";
+                    string sql = $"INSERT INTO notificacions (llegida, usuari, matricula, descripcio) VALUES (@llegida, @usuari, @matricula, @descripcio)";
                     MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
+                    sqlCommand.Parameters.AddWithValue("@llegida", llegida);
                     sqlCommand.Parameters.AddWithValue("@usuari", usuari);
                     sqlCommand.Parameters.AddWithValue("@matricula", matricula);
                     sqlCommand.Parameters.AddWithValue("@descripcio", descripcio);
-                    sqlCommand.Parameters.AddWithValue("@estat", estat);
                     int rowsAffected = sqlCommand.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
@@ -68,7 +75,7 @@ namespace Programa.Dades
                 }
             }
         }
-        public void EliminarIncidenciaBDD(int idIncidencia)
+        public void EliminarNotiBDD(int idNotificacio)
         {
             MySqlConnection connection = connexio.ConnexioBDD();
             if (connection != null)
@@ -76,9 +83,9 @@ namespace Programa.Dades
                 try
                 {
                     connection.Open();
-                    string sql = $"DELETE FROM incidencia WHERE idIncidencia = @idIncidencia";
+                    string sql = $"DELETE FROM notificacions WHERE idNotificacio = @idNotificacio";
                     MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
-                    sqlCommand.Parameters.AddWithValue("@idIncidencia", idIncidencia);
+                    sqlCommand.Parameters.AddWithValue("@idNotificacio", idNotificacio);
 
                     int rowsAffected = sqlCommand.ExecuteNonQuery();
                     if (rowsAffected > 0)
@@ -95,18 +102,18 @@ namespace Programa.Dades
                 }
             }
         }
-        public void UpdateIncidenciaBDD(int idIncidencia, string usuari, string matricula, string descripcio, string estat)
-        { // Update que permet modificar el estat de la incidencia, es el unic valor que ha de ser modificable
+        public void UpdateNotiBDD(int idNotificacio, int llegida)
+        {
             MySqlConnection connection = connexio.ConnexioBDD();
             if (connection != null)
             {
                 try
                 {
                     connection.Open();
-                    string sql = $"UPDATE incidencia SET estat = @estat WHERE idIncidencia = @idIncidencia";
+                    string sql = $"UPDATE notificacions SET llegida = @llegida WHERE idNotificacio = @idNotificacio";
                     MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
-                    sqlCommand.Parameters.AddWithValue("@idIncidencia", idIncidencia);
-                    sqlCommand.Parameters.AddWithValue("@usuari", usuari);
+                    sqlCommand.Parameters.AddWithValue("@idNotificacio", idNotificacio);
+                    sqlCommand.Parameters.AddWithValue("@llegida", llegida);
                     int rowsAffected = sqlCommand.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
