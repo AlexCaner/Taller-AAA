@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Imatges\advertencia.png" />
+    <None Remove="Imatges\campana-de-notificacion.png" />
+    <None Remove="Imatges\cerrar-sesion.png" />
+    <None Remove="Imatges\cerrar.png" />
+    <None Remove="Imatges\factures.png" />
+    <None Remove="Imatges\historial.png" />
+    <None Remove="Imatges\incidente.png" />
+    <None Remove="Imatges\mecanico.png" />
+    <None Remove="Imatges\menu.png" />
+    <None Remove="Imatges\menu2png.png" />
+    <None Remove="Imatges\minimizar-signo.png" />
+    <None Remove="Imatges\restaurar.png" />
+    <None Remove="Imatges\rueda-dentada.png" />
+    <None Remove="Imatges\tg_Btn_default1.png" />
+    <None Remove="Imatges\unnamed.png" />
+    <None Remove="logo_projectedaw-removebg.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dades\" />
+    <Folder Include="Vista\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Imatges\advertencia.png" />
+    <Resource Include="Imatges\campana-de-notificacion.png" />
+    <Resource Include="Imatges\cerrar-sesion.png" />
+    <Resource Include="Imatges\cerrar.png" />
+    <Resource Include="Imatges\factures.png" />
+    <Resource Include="Imatges\historial.png" />
+    <Resource Include="Imatges\incidente.png" />
+    <Resource Include="Imatges\menu.png" />
+    <Resource Include="Imatges\menu2png.png" />
+    <Resource Include="Imatges\minimizar-signo.png" />
+    <Resource Include="Imatges\restaurar.png" />
+    <Resource Include="Imatges\rueda-dentada.png" />
+    <Resource Include="Imatges\tg_Btn_default1.png" />
+    <Resource Include="Imatges\unnamed.png" />
+    <Resource Include="logo_projectedaw-removebg.png" />
+  </ItemGroup>
+
+</Project>
