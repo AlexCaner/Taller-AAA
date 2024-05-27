@@ -1,4 +1,5 @@
-﻿using Programa.VistesFinestres;
+﻿using Programa.Negoci;
+using Programa.VistesFinestres;
 using Programa.VistesFinestres.FinestresMMC;
 using System.Text;
 using System.Windows;
@@ -18,6 +19,8 @@ namespace Programa
     /// </summary>
     public partial class MainWindow : Window
     {
+        Notificacions llistanotificacions; Notificacions llistaFiltreNotificacions;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -96,6 +99,14 @@ namespace Programa
 
         private void btn_Notis_Client_Selected(object sender, RoutedEventArgs e)
         {
+            llistanotificacions = new Notificacions();
+            llistaFiltreNotificacions = new Notificacions();
+
+            //Inserir en la llista notificacions totes les notificacions de la BD
+            llistanotificacions.TotesLesNotis();
+
+            //Afegir les notificacions en el GRID
+            dtg_noti_1.ItemsSource = llistanotificacions;
             gridHistorialClient.Visibility = Visibility.Collapsed;
             gridFacturesClient.Visibility = Visibility.Collapsed;
             gridNotisClient.Visibility = Visibility.Visible;
@@ -114,6 +125,7 @@ namespace Programa
             gridNotisClient.Visibility = Visibility.Collapsed;
             gridHistorialClient.Visibility = Visibility.Collapsed;
             gridFacturesClient.Visibility = Visibility.Visible;
+
         }
     }
 }

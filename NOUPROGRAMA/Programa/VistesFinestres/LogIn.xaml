@@ -58,6 +58,6 @@
                    Content="Iniciar Sessió"
                    Background="Gray"
                    BorderBrush="Black"
-                   BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="143" Height="33"/>
+                   BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="143" Height="33"/>
     </Grid>
 </Window>
