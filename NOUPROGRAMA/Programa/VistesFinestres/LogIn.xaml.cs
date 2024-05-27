@@ -38,11 +38,19 @@ namespace Programa.VistesFinestres
             {
                 //Interfaz cliente | Guardamos el cliente 
                 Cliente cliente = persones.TrobarClient(loginU);
+                finestraPrincipal.botonsMenuUsuari.Visibility = Visibility.Visible;
+                MessageBox.Show($"Iniciant Sessió...");
+                Close();
+                finestraPrincipal.Visibility = Visibility.Visible;
             }
             else if (persones.TrobarUsuariMecanic(loginU, loginC))
             {
                 //Interfaz Mecanico | Guardamos el mecanico
                 Mecanic mecanic = persones.TrobarMecanic(loginU);
+                finestraPrincipal.botonsMenuMecanic.Visibility = Visibility.Visible;
+                MessageBox.Show($"Iniciant Sessió...");
+                Close();
+                finestraPrincipal.Visibility = Visibility.Visible;
             }
 
         }

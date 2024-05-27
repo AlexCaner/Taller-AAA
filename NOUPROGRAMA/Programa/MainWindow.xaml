@@ -13,7 +13,7 @@
         Background="Transparent" 
         FontFamily="{DynamicResource MaterialDesignFont}" x:Class="Programa.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="688" Width="1051" Visibility="Visible">
+        Title="MainWindow" Height="688" Width="1051" Visibility="Hidden">
     <Window.Resources>
 
         <!-- Template per als buttons -->
@@ -222,7 +222,7 @@
                     </Grid>
 
                     <!-- Peces -->
-                    <Grid x:Name="gridPecesMeca" Visibility="Visible">
+                    <Grid x:Name="gridPecesMeca" Visibility="Collapsed">
                         <Border BorderBrush="White" Background="#FF5A626D" BorderThickness="1" HorizontalAlignment="Left" Height="118" Margin="477,91,0,0" VerticalAlignment="Top" Width="228"/>
                         <Button Style="{StaticResource boton}" x:Name="btn_Filtrar" Click="btn_Filtrar_Click" Content="Filtrar" HorizontalAlignment="Left" Height="22" Margin="597,395,0,0" VerticalAlignment="Top" Width="108" />
                         <DataGrid Style="{StaticResource dg_estilPeces}" AutoGenerateColumns="False" Background="#035A626D" x:Name="dgPeçes" HorizontalAlignment="Left" Height="256" Margin="104,159,0,0" VerticalAlignment="Top" BorderBrush="#00808080">
@@ -612,7 +612,7 @@
                         <ListView x:Name="botonsMenuMecanic"
                                   Background="Transparent"
                                   BorderBrush="Transparent"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Visibility="Visible">
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Visibility="Collapsed">
 
                             <!-- Incidencies -->
                             <ListViewItem x:Name="btn_Incidencies_Meca" HorizontalAlignment="Left"
@@ -710,7 +710,7 @@
 
                             <!-- LogOut -->
                             <ListViewItem HorizontalAlignment="Left"
-                                          Margin="5,185,0,15">
+                                          Margin="5,180,0,15">
                                 <StackPanel Orientation="Horizontal"
                                             Width="230">
 
