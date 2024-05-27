@@ -8,7 +8,7 @@
         Title="Factures" Height="450" Width="800">
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,0,0,-6" Background="#2E333A">
-            <ItemsControl x:Name="IncidenciasItemsControl" Width="800">
+            <ItemsControl x:Name="FacturesItemsControl" Width="800">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -20,7 +20,7 @@
                             <StackPanel>
                                 <TextBlock Text="{Binding matricula}" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="White"/>
                                 <TextBlock Text="{Binding descripcio}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="White"/>
-                                <Button Style="{StaticResource boton_quadrado}" Content="Descarregar"/>
+                                <Button Style="{StaticResource boton_quadrado}" Content="Descarregar" Click="Accion1_Click"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>

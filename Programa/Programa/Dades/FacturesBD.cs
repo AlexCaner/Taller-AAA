@@ -44,7 +44,7 @@ namespace Programa.Dades
         }
 
         // Método para recuperar la factura de la base de datos
-        public byte[] ObtenerFacturaDeBaseDatos(string connectionString)
+        public byte[] ObtenerFacturaDeBaseDatos(string usuari)
         {
             byte[] facturaHtml = null;
             MySqlConnection connection = connexio.ConnexioBDD();
@@ -57,7 +57,7 @@ namespace Programa.Dades
                     connection.Open();
 
                     // Query para obtener la factura
-                    string query = "SELECT FacturaHtml FROM Facturas WHERE idFactura = @idFactura";
+                    string query = "SELECT FacturaHtml FROM Facturas WHERE usuari = @usuari";
 
                     // Crear un comando SQL
                     MySqlCommand sqlCommand = new MySqlCommand(query, connection);
@@ -83,4 +83,4 @@ namespace Programa.Dades
         }
     }
 }
-}
+

@@ -1,4 +1,5 @@
-﻿using Programa.Dades;
+﻿using Programa.Classes;
+using Programa.Dades;
 using Programa.Negocio;
 using System;
 using System.Collections;
@@ -9,22 +10,31 @@ using System.Threading.Tasks;
 
 namespace Programa.Negoci
 {
-    class Factures:IEnumerable<Factura>
+    internal class Factures : IEnumerable<Factura>
     {
-        // Atributs i Propietats
-        public List<Factura> factures { get; set; }
-        FacturesBD facturesBD = new FacturesBD();
-        //Constructors
-        public Factures() { }
+        // Attributes and Properties
+        public List<Factura> factures { get; private set; } // Marking as private set for encapsulation
+        private readonly FacturesBD facturesBD; // Marking as readonly
+
+        // Constructors
+        public Factures()
+        {
+            factures = new List<Factura>();
+            facturesBD = new FacturesBD();
+        }
+
+        // Method to fetch all invoices (implementation needed)
         public void TotesLesFactures()
         {
-
+            // Implementation needed
         }
-        // Implementació de l'interficie IEnumerable
+
+        // Implementation of IEnumerable interface
         public IEnumerator<Factura> GetEnumerator()
         {
             return factures.GetEnumerator();
         }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return factures.GetEnumerator();

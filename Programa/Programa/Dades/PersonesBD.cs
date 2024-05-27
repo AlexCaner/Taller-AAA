@@ -62,7 +62,36 @@ namespace Programa.Dades
                 connection.Close();
             }
             return mecanic;
+        }
+        public bool TrobarUsuari(string usuari, string contrasenya)
+        {
+            bool comprovacio = false;
+            MySqlConnection connection = connexio.ConnexioBDD();
+            if (connection != null)
+            {
+                try
+                {
+                    connection.Open();
+                    string sql = "SELECT COUNT(*) FROM Mecanics WHERE usuari = @usuari AND contrasenya = @contrasenya";
+                    MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
+                    sqlCommand.Parameters.AddWithValue("@usuari", usuari);
+                    sqlCommand.Parameters.AddWithValue("@contrasenya", contrasenya);
 
+                    // Execute the query and get the count of matching rows
+                    int count = Convert.ToInt32(sqlCommand.ExecuteScalar());
+                    comprovacio = (count > 0);
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions (e.g., log the error)
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return comprovacio;
         }
     }
 }
