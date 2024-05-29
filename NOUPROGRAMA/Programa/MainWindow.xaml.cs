@@ -1,20 +1,15 @@
-﻿using Programa.Classes;
+﻿using MySql.Data.MySqlClient;
+using Programa.Classes;
 using Programa.Dades;
 using Programa.Negoci;
 using Programa.Negocio;
 using Programa.VistesFinestres;
 using Programa.VistesFinestres.FinestresMMC;
 using System.ComponentModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Programa
 {
@@ -32,43 +27,57 @@ namespace Programa
         //Crear els objectes per a gestionar les peces.
         private Peces peces2;
         private ICollectionView pecesView;
-
+        // Crear els objectes per a gestionar l'historial
+        private Incidencias incidencies2;
+        private ICollectionView incidenciesView;
+        private Vehicles vehicles;
 
         public MainWindow()
         {
-            InitializeComponent();
+           
             LogIn logIn = new LogIn(this);
             logIn.Visibility = Visibility.Visible;
+            InitializeComponent();
 
             // Notificacions
-                llistanotificacions = new Notificacions();
-                llistaFiltreNotificacions = new Notificacions();
+            llistanotificacions = new Notificacions();
+            llistaFiltreNotificacions = new Notificacions();
 
-                //Inserir en la llista notificacions totes les notificacions de la BD
-                llistanotificacions.TotesLesNotis();
+            //Inserir en la llista notificacions totes les notificacions de la BD
+            llistanotificacions.TotesLesNotis();
 
-                //Afegir les notificacions en el GRID
-                dtg_noti_1.ItemsSource = llistanotificacions;
+            //Afegir les notificacions en el GRID
+            dtg_noti_1.ItemsSource = llistanotificacions;
 
             // Final inicialitzar notificacions
 
             // Incidencies
-                //Initcialitzem la llista d'incidencies.
-                incidencies = new Incidencias();
+            //Initcialitzem la llista d'incidencies.
+            incidencies = new Incidencias();
 
-                //Inserim totes les incidencies a la llista.
-                incidencies.TotesLesIncidencies();
+            //Inserim totes les incidencies a la llista.
+            incidencies.TotesLesIncidencies();
 
-                //Enllaçem la llista amb el ItemsControl per crear la part visual dels objectes.
-                IncidenciasItemsControl.ItemsSource = incidencies;
+            //Enllaçem la llista amb el ItemsControl per crear la part visual dels objectes.
+            IncidenciasItemsControl.ItemsSource = incidencies;
             // Final Inicialitzar Incidencies
 
             // Inicialitzar Peces
-                peces2 = new Peces();
-                peces2.TotesLesPeces();
-                pecesView = CollectionViewSource.GetDefaultView(peces2);
-                dgPeçes.ItemsSource = pecesView;
+            peces2 = new Peces();
+            peces2.TotesLesPeces();
+            pecesView = CollectionViewSource.GetDefaultView(peces2);
+            dgPeçes.ItemsSource = pecesView;
             // Finalitzar inicialitzar peces
+
+            // Historial
+            incidencies2 = new Incidencias();
+            incidencies2 = incidencies2.TotesIncidenciesClient(persones.ConsultarUsuariTemporal());
+            dgHistorial.ItemsSource = incidencies2;
+            incidenciesView = CollectionViewSource.GetDefaultView(incidencies2);
+            dgHistorial.ItemsSource = incidenciesView;
+
+            // Inicialitzar vehicles
+            vehicles = new Vehicles();
         }
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
@@ -79,14 +88,12 @@ namespace Programa
             {
                 tt_notis.Visibility = Visibility.Collapsed;
                 tt_historial.Visibility = Visibility.Collapsed;
-                tt_factures.Visibility = Visibility.Collapsed;
                 tt_logOutClient.Visibility = Visibility.Collapsed;
             }
             else
             {
                 tt_notis.Visibility = Visibility.Visible;
                 tt_historial.Visibility = Visibility.Visible;
-                tt_factures.Visibility = Visibility.Visible;
                 tt_logOutClient.Visibility = Visibility.Visible;
             }
         }
@@ -95,13 +102,11 @@ namespace Programa
             if (tg_btn.IsChecked == true)
             {
                 tt_historial.Visibility = Visibility.Collapsed;
-                tt_factures.Visibility = Visibility.Collapsed;
                 tt_logOutMecanic.Visibility = Visibility.Collapsed;
             }
             else
             {
                 tt_historial.Visibility = Visibility.Visible;
-                tt_factures.Visibility = Visibility.Visible;
                 tt_logOutMecanic.Visibility = Visibility.Visible;
             }
         }
@@ -120,69 +125,54 @@ namespace Programa
         {
             tg_btn.IsChecked = false;
         }
+        
 
-        private void btn_Close_Click(object sender, RoutedEventArgs e)
-        {
-            // Parametre afegit que passa finestraPrincipal
-            CloseWindow closeWindow = new CloseWindow(this);
-            closeWindow.Show();
-        }
-
-        private void btn_minimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
-
-        private void ListViewItem2_Selected(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Hola");
-        }
         // GESTIO MOVIMENTS GRID CLIENT
-            private void btn_Notis_Client_Selected(object sender, RoutedEventArgs e)
-            {
+        private void btn_Notis_Client_Selected(object sender, RoutedEventArgs e)
+        {
 
-                gridFacturesClient.Visibility = Visibility.Collapsed;
-                gridHistorialClient.Visibility = Visibility.Collapsed;
-                gridNotisClient.Visibility = Visibility.Collapsed;
-            }
-            private void btn_historial_Client_Selected(object sender, RoutedEventArgs e)
-            {
-                gridNotisClient.Visibility = Visibility.Collapsed;
-                gridFacturesClient.Visibility = Visibility.Collapsed;
-                gridHistorialClient.Visibility = Visibility.Visible;
-            
-            }
-            private void btn_Factures_Client_Selected(object sender, RoutedEventArgs e)
-            {
-                gridNotisClient.Visibility = Visibility.Collapsed;
-                gridHistorialClient.Visibility = Visibility.Collapsed;
-                gridFacturesClient.Visibility = Visibility.Visible;
+            gridHistorialClient.Visibility = Visibility.Collapsed;
+            gridNotisClient.Visibility = Visibility.Collapsed;
+        }
+        private void btn_historial_Client_Selected(object sender, RoutedEventArgs e)
+        {
+            incidencies2 = incidencies2.TotesIncidenciesClient(persones.ConsultarUsuariTemporal());
+            dgHistorial.ItemsSource = incidencies2;
+            incidenciesView = CollectionViewSource.GetDefaultView(incidencies2);
+            dgHistorial.ItemsSource = incidenciesView;
+            gridNotisClient.Visibility = Visibility.Collapsed;
+            gridHistorialClient.Visibility = Visibility.Visible;
+        }
+        private void btn_Factures_Client_Selected(object sender, RoutedEventArgs e)
+        {
+            gridNotisClient.Visibility = Visibility.Collapsed;
+            gridHistorialClient.Visibility = Visibility.Collapsed;
 
-            }
+        }
 
         // FINAL GESTIO MOVIMENTS GRID CLIENT
 
         // GESTIO MOVIMENTS GRID MECANICS
 
-            private void btn_Incidencies_Meca_Selected(object sender, RoutedEventArgs e)
-            {
-                gridNovaIncidencia.Visibility = Visibility.Collapsed;
-                gridPecesMeca.Visibility = Visibility.Collapsed;
-                gridIncidenciesMeca.Visibility = Visibility.Visible;
-            }
-            private void btn_NovaIncidencia_Meca_Selected(object sender, RoutedEventArgs e)
-            {
-                
-                gridPecesMeca.Visibility = Visibility.Collapsed;
-                gridIncidenciesMeca.Visibility = Visibility.Collapsed;
-                gridNovaIncidencia.Visibility = Visibility.Visible;
-            }
-            private void btn_peces_Meca_Selected(object sender, RoutedEventArgs e)
-                {
-                    gridIncidenciesMeca.Visibility = Visibility.Collapsed;
-                    gridNovaIncidencia.Visibility = Visibility.Collapsed;
-                    gridPecesMeca.Visibility = Visibility.Visible;
-                }
+        private void btn_Incidencies_Meca_Selected(object sender, RoutedEventArgs e)
+        {
+            gridNovaIncidencia.Visibility = Visibility.Collapsed;
+            gridPecesMeca.Visibility = Visibility.Collapsed;
+            gridIncidenciesMeca.Visibility = Visibility.Visible;
+        }
+        private void btn_NovaIncidencia_Meca_Selected(object sender, RoutedEventArgs e)
+        {
+
+            gridPecesMeca.Visibility = Visibility.Collapsed;
+            gridIncidenciesMeca.Visibility = Visibility.Collapsed;
+            gridNovaIncidencia.Visibility = Visibility.Visible;
+        }
+        private void btn_peces_Meca_Selected(object sender, RoutedEventArgs e)
+        {
+            gridIncidenciesMeca.Visibility = Visibility.Collapsed;
+            gridNovaIncidencia.Visibility = Visibility.Collapsed;
+            gridPecesMeca.Visibility = Visibility.Visible;
+        }
 
         // FINAL GESTIO MOVIMENTS GRID MECANIS
 
@@ -501,5 +491,89 @@ namespace Programa
             txt_Quantitat_Eliminar.Text = string.Empty;
         }
         // FINAL PECES METODES
+
+        // INICI HISTORIAL METODES
+
+        private void btn_Filtrar_Click_historial(object sender, RoutedEventArgs e)
+        {
+            string matricula = txt_Filtrar_Matricula.Text;
+
+            if (!string.IsNullOrEmpty(matricula))
+            {
+                incidenciesView.Filter = item =>
+                {
+                    Incidencia incidencia = item as Incidencia;
+                    return incidencia.matricula.Contains(matricula, StringComparison.OrdinalIgnoreCase);
+                };
+            }
+            else
+            {
+                incidenciesView.Filter = null;
+            }
+        }
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            string estadoSeleccionado = ((RadioButton)sender).Content.ToString();
+
+            switch (estadoSeleccionado)
+            {
+                case "Aberiat":
+                    incidenciesView.Filter = item =>
+                    {
+                        Incidencia incidencia = item as Incidencia;
+                        return incidencia.estat == "Aberiat";
+                    };
+                    break;
+                case "Reparacio":
+                    incidenciesView.Filter = item =>
+                    {
+                        Incidencia incidencia = item as Incidencia;
+                        return incidencia.estat == "Reparacio";
+                    };
+                    break;
+                case "Acabat":
+                    incidenciesView.Filter = item =>
+                    {
+                        Incidencia incidencia = item as Incidencia;
+                        return incidencia.estat == "Acabat";
+                    };
+                    break;
+                case "Todos":
+                    incidenciesView.Filter = null;
+                    break;
+            }
+        }
+
+        // FINAL HISTORIAL METODES
+
+        // INICI INCIDENCIES METODES
+
+        private void btn_inci_1_Click(object sender, RoutedEventArgs e)
+        {
+            //Agafant les dades del formulari de la pestanya, insertem aquesta a la BD i creem un objecte amb les mateixes dades.
+            incidencies.InsertIncidencia(txtb_usr.Text, txtb_matricula.Text, txtb_descripcio.Text, cmbox_estat.Text);
+            Incidencia incidencia = new Incidencia(txtb_usr.Text, txtb_matricula.Text, txtb_descripcio.Text, cmbox_estat.Text);
+
+            //Fent servir les dades de la incidencia creada, farem una notificació de la incidencia que veura el client.
+            notificacions.InsertNoti(0, incidencia.usuari, incidencia.matricula, incidencia.descripcio);
+
+            //Creem dos variables, un INT per convertir el kilometratge de String a INT i un DateTime per convertir la data del any de fabricació.
+            int i;
+            int.TryParse(txtb_kilometratge.Text, out i);
+            DateTime dataFab;
+            DateTime.TryParse(txtb_anyfabricacio.Text, out dataFab);
+
+            //Per últim inserim a la BD el vehicle creat
+            vehicles.InsertVehicle(txtb_matricula.Text, txtb_marca.Text, txtb_model.Text, i, dataFab, txtb_tipusMotor.Text);
+
+            // Mostrar un missatge confirmant la creació de la incidència i el vehicle
+            MessageBox.Show($"La incidència i el vehicle s'han creat correctament.", "Confirmació de creació", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void btn_LogOut_Selected(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        // FINAL INCIDENCIES METODES
     }
 }

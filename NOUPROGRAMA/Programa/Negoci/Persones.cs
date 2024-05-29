@@ -21,7 +21,7 @@ namespace Programa.Classes
         }
         public Mecanic TrobarMecanic(string usuari)
         {
-           return personesBD.TrobarMecanicBDD(usuari);
+            return personesBD.TrobarMecanicBDD(usuari);
         }
         public Cliente TrobarClient(string usuari)
         {
@@ -44,6 +44,18 @@ namespace Programa.Classes
         IEnumerator IEnumerable.GetEnumerator()
         {
             return persones.GetEnumerator();
+        }
+        public void InserirUsuariTemporal(string usuari)
+        {
+            personesBD.InserirClientTemporal(usuari);
+        }
+        public void TreureUsuariTemporal()
+        {
+            personesBD.TreureClientTemporal();
+        }
+        public string ConsultarUsuariTemporal()
+        {
+            return personesBD.ConsultarUsuariTemporal();
         }
     }
 }

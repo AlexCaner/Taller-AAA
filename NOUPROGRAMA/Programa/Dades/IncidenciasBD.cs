@@ -32,6 +32,30 @@ namespace Programa.Dades
             }
             return incidencies;
         }
+        public Incidencias TotesIncidenciesClientBD(string usuari) // Metode Crea LLista de incidencies y ho passa a incidencies
+        {
+            Incidencias incidencies = new Incidencias();
+            MySqlConnection connection = connexio.ConnexioBDD();
+
+
+            if (connection != null)
+            {
+                connection.Open();
+                string sql = $"SELECT * FROM incidencia WHERE usuari = @usuari";
+                MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
+                sqlCommand.Parameters.AddWithValue("@usuari", usuari);
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    Incidencia incidencia;
+                    incidencia = new Incidencia(Convert.ToInt32(reader["idIncidencia"]), reader["usuari"].ToString(), reader["matricula"].ToString(), reader["descripcio"].ToString(), reader["estat"].ToString());
+                    incidencies.Add(incidencia);
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return incidencies;
+        }
         public void InsertIncidenciaBDD(string usuari, string matricula, string descripcio, string estat)
         {
             //Creem la clase per obrir la connexió
@@ -68,6 +92,8 @@ namespace Programa.Dades
                 }
             }
         }
+
+        
         public void EliminarIncidenciaBDD(int idIncidencia)
         {
             MySqlConnection connection = connexio.ConnexioBDD();

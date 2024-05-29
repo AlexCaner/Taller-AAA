@@ -10,59 +10,134 @@
         BorderThickness="0"
         BorderBrush="Transparent">
     <Border Background="#2E333A" CornerRadius="0,0,8,8">
-        <Grid Background="Transparent">
-            <TextBlock HorizontalAlignment="Left" 
-               Margin="189,61,0,0" 
-               TextWrapping="Wrap" 
-               Text="MOTORS A.A.A" 
-               VerticalAlignment="Top" 
-               FontSize="48" Foreground="White" 
-               FontWeight="ExtraBold"
-               />
-            <Image HorizontalAlignment="Left" 
-           Height="125" 
-           Margin="558,30,0,0" 
-           VerticalAlignment="Top" 
-           Width="125" 
-           Source="/Imatges/unnamed.png"
-           />
-            <TextBlock HorizontalAlignment="Left" 
-               TextWrapping="Wrap"
-               Text="Usuari"
-               VerticalAlignment="Top" 
-               Margin="259,196,0,0" 
-               FontSize="20"
-               FontWeight="Bold"
-               Foreground="White"/>
-            <TextBlock HorizontalAlignment="Left" 
-               TextWrapping="Wrap"
-               Text="Contrasenya"
-               VerticalAlignment="Top" 
-               Margin="259,260,0,0" 
-               FontSize="20"
-               FontWeight="Bold"
-               Foreground="White"/>
-            <TextBox x:Name="txt_User"   HorizontalAlignment="Left" 
-               Margin="400,196,0,0" 
-               Background="White"
-               BorderThickness="0"
-               Text="" 
-               VerticalAlignment="Top" 
-               Width="153" Height="21" SelectionOpacity="1"/>
-            <TextBox x:Name="txt_Pass"   HorizontalAlignment="Left" 
-               Margin="400,266,0,0" 
-               Background="White"
-               BorderThickness="0"
-               Text="" 
-               VerticalAlignment="Top" 
-               Width="153" Height="21" SelectionOpacity="1"/>
-            <Button    x:Name="btn_login" 
-               Margin="419,0,0,71" 
-               Click="btn_login_Click" 
-               Content="Iniciar Sessió"
-               Background="Gray"
-               BorderBrush="Black"
-               BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="134" Height="33"/>
+        <Grid>
+            <Grid Background="Transparent" x:Name="gridLogIn" Visibility="Visible">
+                <TextBlock HorizontalAlignment="Left" 
+                   Margin="189,61,0,0" 
+                   TextWrapping="Wrap" 
+                   Text="MOTORS A.A.A" 
+                   VerticalAlignment="Top" 
+                   FontSize="48" Foreground="White" 
+                   FontWeight="ExtraBold"
+                   />
+                <Image HorizontalAlignment="Left" 
+                   Height="125" 
+                   Margin="558,30,0,0" 
+                   VerticalAlignment="Top" 
+                   Width="125" 
+                   Source="/Imatges/unnamed.png"
+                   />
+                <TextBlock HorizontalAlignment="Left" 
+                   TextWrapping="Wrap"
+                   Text="Usuari"
+                   VerticalAlignment="Top" 
+                   Margin="259,196,0,0" 
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="White"/>
+                <TextBlock HorizontalAlignment="Left" 
+                   TextWrapping="Wrap"
+                   Text="Contrasenya"
+                   VerticalAlignment="Top" 
+                   Margin="259,260,0,0" 
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="White"/>
+                <TextBox x:Name="txt_User"   HorizontalAlignment="Left" 
+                   Margin="400,196,0,0" 
+                   Background="White"
+                   BorderThickness="0"
+                   Text="" 
+                   VerticalAlignment="Top" 
+                   Width="153" Height="21" SelectionOpacity="1"
+                   />
+                <PasswordBox x:Name="txt_Pass"   
+                   HorizontalAlignment="Left" 
+                   Margin="400,266,0,0" 
+                   Background="White"
+                   BorderThickness="0"
+                   VerticalAlignment="Top" 
+                   Width="153" 
+                   Height="21" 
+                   SelectionOpacity="1">
+
+                </PasswordBox>
+                <Button    x:Name="btn_login" 
+                   Margin="419,0,0,71" 
+                   Click="btn_login_Click" 
+                   Content="Iniciar Sessió"
+                   Background="Gray"
+                   BorderBrush="Black"
+                   BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="134" Height="33"/>
+                <Button    x:Name="btn_compte" 
+                    Margin="259,0,0,71" 
+                    Click="btn_compte_Click" 
+                    Content="Crear compte"
+                    Background="Gray"
+                    BorderBrush="Black"
+                    BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="134" Height="33"/>
+            </Grid>
+            <Grid>
+                <Grid Background="Transparent" x:Name="gridSignIn" Visibility="Collapsed">
+                    <TextBlock HorizontalAlignment="Left" 
+       Margin="189,61,0,0" 
+       TextWrapping="Wrap" 
+       Text="MOTORS A.A.A" 
+       VerticalAlignment="Top" 
+       FontSize="48" Foreground="White" 
+       FontWeight="ExtraBold"
+       />
+                    <Image HorizontalAlignment="Left" 
+   Height="125" 
+   Margin="558,30,0,0" 
+   VerticalAlignment="Top" 
+   Width="125" 
+   Source="/Imatges/unnamed.png"
+   />
+                    <TextBlock HorizontalAlignment="Left" 
+       TextWrapping="Wrap"
+       Text="Usuari"
+       VerticalAlignment="Top" 
+       Margin="259,196,0,0" 
+       FontSize="20"
+       FontWeight="Bold"
+       Foreground="White"/>
+                    <TextBlock HorizontalAlignment="Left" 
+       TextWrapping="Wrap"
+       Text="Contrasenya"
+       VerticalAlignment="Top" 
+       Margin="259,260,0,0" 
+       FontSize="20"
+       FontWeight="Bold"
+       Foreground="White"/>
+                    <TextBox x:Name="txt_UserNew"   HorizontalAlignment="Left" 
+       Margin="400,196,0,0" 
+       Background="White"
+       BorderThickness="0"
+       Text="" 
+       VerticalAlignment="Top" 
+       Width="153" Height="21" SelectionOpacity="1"
+       />
+                    <PasswordBox x:Name="txt_PassNew"   
+       HorizontalAlignment="Left" 
+       Margin="400,266,0,0" 
+       Background="White"
+       BorderThickness="0"
+       VerticalAlignment="Top" 
+       Width="153" 
+       Height="21" 
+       SelectionOpacity="1">
+
+                    </PasswordBox>
+                    <Button x:Name="btn_Crear" 
+       Margin="0,332,0,0" 
+       Click="btn_compteNew_Click" 
+       Content="Crear compte"
+       Background="Gray"
+       BorderBrush="Black"
+       BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="134" Height="33"/>
+                </Grid>
+            </Grid>
         </Grid>
     </Border>
 </Window>

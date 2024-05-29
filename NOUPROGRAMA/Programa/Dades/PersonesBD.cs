@@ -149,5 +149,81 @@ public Mecanic TrobarMecanicBDD(string usuari)
             }
             return comprovacio;
         }
+
+        public void InserirClientTemporal(string usuari)
+        {
+            MySqlConnection connection = connexio.ConnexioBDD();
+            try
+            {
+                connection.Open();
+                string sql = $"INSERT INTO UsuariTemporal (usuari) VALUES (@usuari)";
+                MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
+                sqlCommand.Parameters.AddWithValue("@usuari", usuari);
+                int rowsAffected = sqlCommand.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public void TreureClientTemporal()
+        {
+            MySqlConnection connection = connexio.ConnexioBDD();
+            try
+            {
+                connection.Open();
+                string sql = $"DELETE FROM UsuariTemporal";
+                MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
+                int rowsAffected = sqlCommand.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public string ConsultarUsuariTemporal()
+        {
+            string usuari = "";
+            try
+            {
+                using (MySqlConnection connection = connexio.ConnexioBDD())
+                {
+                    connection.Open();
+                    string sql = "SELECT * FROM usuaritemporal";
+                    using (MySqlCommand sqlCommand = new MySqlCommand(sql, connection))
+                    {
+                        using (MySqlDataReader reader = sqlCommand.ExecuteReader())
+                        {
+                            if (reader.Read()) // Asegurarse de que hay datos antes de leer
+                            {
+                                usuari = reader["usuari"]?.ToString() ?? string.Empty; // Manejo de valores nulos
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message); // O usar una estrategia de logging más robusta
+            }
+            return usuari;
+        }
+
     }
 }

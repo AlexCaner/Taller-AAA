@@ -22,6 +22,10 @@ namespace Programa.Negoci
         }
 
         // Metodes
+        public void Add(Incidencia incidencia)
+        {
+            incidencias.Add(incidencia);
+        }
         public void TotesLesIncidencies()
         {
             incidencias = IncidenciasBD.TotesIncidencies();
@@ -37,6 +41,10 @@ namespace Programa.Negoci
         public void DeleteIncidencia(int idIncidencia)
         {
             IncidenciasBD.EliminarIncidenciaBDD(idIncidencia);
+        }
+        public Incidencias TotesIncidenciesClient(string usuari)
+        {
+            return IncidenciasBD.TotesIncidenciesClientBD(usuari);
         }
 
         // Implementació de l'interficie IEnumerable
