@@ -10,11 +10,10 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="Transparent" AllowsTransparency="True"
+        Background="Transparent" 
         FontFamily="{DynamicResource MaterialDesignFont}" x:Class="Programa.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="688" Width="1051"
-        WindowStyle="None" Visibility="Hidden">
+        Title="MainWindow" Height="688" Width="1051" Visibility="Visible">
     <Window.Resources>
 
         <!-- Template per als buttons -->
@@ -42,7 +41,7 @@
         </Style>
 
         <Style x:Key="btn_Close">
-            
+
         </Style>
 
 
@@ -95,51 +94,284 @@
 
         </Style>
 
+        <Style TargetType="DataGrid" x:Key="dg_estilPeces">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="RowBackground" Value="#FF7A7F86"/>
+            <Setter Property="AlternatingRowBackground" Value="#FF5A626D"/>
+            <Setter Property="VerticalGridLinesBrush" Value="White"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#FF5A626D"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader" x:Key="dgch_estilpeces">
+            <Setter Property="Background" Value="#FF5A626D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+
+        <!-- Estils per a Historial -->
+
+        <Style TargetType="DataGrid" x:Key="dg_historial">
+            <Setter Property="FontFamily" Value="Bahnschrift"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="RowBackground" Value="#FF7A7F86"/>
+            <Setter Property="AlternatingRowBackground" Value="#FF5A626D"/>
+            <Setter Property="VerticalGridLinesBrush" Value="White"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#FF5A626D"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader" x:Key="dgch_historial">
+            <Setter Property="Background" Value="#FF5A626D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,5"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFF4ECE1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
     </Window.Resources>
 
-    <Border CornerRadius="8" BorderThickness="1" Background="White">
+    <Border CornerRadius="0,0,8,8" BorderThickness="1" Background="White">
         <Grid>
-            <Grid Background="White" 
-                  Margin="90,0,0,667"
-                  AllowDrop="True">
-                <Grid Margin="835,0,0,0">
-                    <Button x:Name="btn_minimize" Margin="10,0,57,0"
-                            BorderThickness="0" Background="{x:Null}" Click="btn_minimize_Click">
-                        <Image Source="/Imatges/minimizar-signo.png" Width="20" Height="15"/>
-                    </Button>
-                    <Button x:Name="btn_Close" Margin="67,0,0,0"
-                            BorderThickness="0" Background="{x:Null}" Click="btn_Close_Click">
-                        <Image Source="/Imatges/cerrar.png" Height="14" Width="14"/>
-                    </Button>
-                </Grid>
-            </Grid>
+
             <!-- Grid per a mostrar la informació -->
-            <Grid x:Name="gridMostrar" Background="#2E333A"
-                  Margin="90,20,0,0" 
-                  PreviewMouseLeftButtonDown="gridMostrar_PreviewMouseLeftButtonDown">
-                <Grid x:Name="gridNotisClient" Background="Yellow" Visibility="Collapsed">
-                    
+            <Border Margin="90,0,0,0                     " Grid.RowSpan="2">
+                <Grid x:Name="gridMostrar" Background="#2E333A"
+                  Margin="0,0,0,0" 
+                  PreviewMouseLeftButtonDown="gridMostrar_PreviewMouseLeftButtonDown" Grid.RowSpan="2">
+
+
+                    <!-- GRIDS CLIENT -->
+                    <!-- Notificacions -->
+
+                    <Grid x:Name="gridNotisClient" 
+                    Background="Transparent" 
+                    Visibility="Hidden">
+                        <DataGrid Name="dtg_noti_1" Margin="104,32,105,163" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" GridLinesVisibility="None" Style="{StaticResource CustomDataGridStyle}">
+
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="350">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding descripcio}" TextWrapping="Wrap" Margin="10"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="240">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Button Name="noti_btn_llegit" Style="{StaticResource noti_btn}" Tag="/Estils/read.png" Click="NotiBtnLlegit_Click" Margin="5">
+                                                    <TextBlock Text="UR"/>
+                                                </Button>
+                                                <Button Name="noti_btn_nollegit" Style="{StaticResource noti_btn}" Tag="/Estils/unread.png" Click="NotiBtnNoLlegit_Click" Margin="5">
+                                                    <TextBlock Text="R" />
+                                                </Button>
+                                                <Button Name="noti_btn_eliminar" Style="{StaticResource noti_btn}" Tag="/Estils/delete.png" Click="NotiBtnEliminar_Click" Margin="5">
+                                                    <TextBlock Text="X"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <!--Radio Buttons-->
+                        <RadioButton Name="rdb_noti_2" Content="No Llegides" HorizontalAlignment="Left" Margin="104,581,0,0" VerticalAlignment="Top" Background="White" BorderBrush="White" Foreground="White"/>
+                        <RadioButton Name="rdb_noti_1" Content="Llegides" HorizontalAlignment="Left" Margin="104,561,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+                        <RadioButton Name="rdb_noti_3" Content="Totes" HorizontalAlignment="Left" Margin="104,541,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True"/>
+
+                        <!--Cerca-->
+                        <TextBox  Style="{StaticResource TextBoxStyle}" Name="txtb_noti_cercador" HorizontalAlignment="Left" Margin="104,603,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="120"/>
+                        <Button Style="{StaticResource boton}" Name="btn_noti_cercador" Content="Search" HorizontalAlignment="Left" Margin="229,605,0,0" VerticalAlignment="Top" Click="btn_noti_cercador_Click"/>
+                    </Grid>
+                    <!-- Historial -->
+                    <Grid x:Name="gridHistorialClient" Background="Transparent" Visibility="Collapsed">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Foreground="White" FontFamily="Cascadia Code" FontSize="30" Text="HISTORIAL DE INCIDÈNCIES" VerticalAlignment="Top" Margin="75,32,-75,0"/>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="75,526,-75,0">
+                            <TextBlock Foreground="White" FontFamily="Cascadia Code" FontSize="18" Text="MATRICULA" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txt_Filtrar_Matricula" Height="22" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="114"/>
+                        </StackPanel>
+
+                        <DataGrid Grid.Column="0" AutoGenerateColumns="False" x:Name="dgHistorial" Margin="75,110,200,167" BorderBrush="#FF2E333A" Style="{StaticResource dg_historial}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="130" Header="ID INCIDENCIA" HeaderStyle="{StaticResource dgch_historial}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding id}" TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="115" Header="MATRICULA" HeaderStyle="{StaticResource dgch_historial}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding matricula}" TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="313" Header="DESCRIPCIO" HeaderStyle="{StaticResource dgch_historial}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding descripcio}" Height="50" TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="115" Header="ESTAT" HeaderStyle="{StaticResource dgch_historial}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding estat}" TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Button Grid.Column="0" Style="{StaticResource boton}" x:Name="btn_Filtrar" Click="btn_Filtrar_Click" Content="FILTRAR" HorizontalAlignment="Left" Height="22" Margin="178,553,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold"/>
+
+                        <StackPanel VerticalAlignment="Top" Margin="804,155,-54,0">
+                            <RadioButton Content="Aberiat" x:Name="rb_Abert" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+                            <RadioButton Content="Reparacio" x:Name="rb_Reparacio" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+                            <RadioButton Content="Acabat" x:Name="rb_Acabado" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+                            <RadioButton Content="Todos" x:Name="rb_Todos" Checked="RadioButton_Checked" FontFamily="Bahnschrift" FontSize="16" Foreground="White" Margin="0,0,0,10"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- GRIDS MECANIC -->
+                    <Grid x:Name="gridIncidenciesMeca" Visibility="Visible">
+                        <TextBlock Foreground="White" FontFamily="Cascadia Code" FontSize="30" HorizontalAlignment="Left" Height="38" Margin="75,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458" Text="Incidencies"></TextBlock>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="35,83,10,10" Background="#2E333A">
+                            <ItemsControl x:Name="IncidenciasItemsControl" Width="800" Height="552">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="White" Background="#2E333A" BorderThickness="5" Margin="5" Padding="10" Width="200" CornerRadius="10">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding usuari}" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="White"/>
+                                                <TextBlock Text="{Binding matricula}" FontWeight="Bold" FontSize="14" Margin="0,0,0,5" Foreground="White"/>
+                                                <TextBlock Text="{Binding descripcio}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="White"/>
+                                                <ComboBox x:Name="cmb_item_1"  Margin="0,0,0,5">
+                                                    <ComboBoxItem Content="En reparació"/>
+                                                    <ComboBoxItem Content="Reparat"/>
+                                                    <ComboBoxItem Content="En Tràmit"/>
+                                                </ComboBox>
+                                                <Button Style="{StaticResource boton_quadrado}" Content="Realitzada" Click="Accion1_Click" Margin="0,0,0,5"/>
+                                                <Button Style="{StaticResource boton_quadrado}" Content="Notificar" Click="Accion2_Click"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                    <!-- Crear Incidencies -->
+                    <Grid x:Name="gridNovaIncidencia" Visibility="Collapsed">
+                        <TextBlock Foreground="White" FontFamily="Cascadia Code" FontSize="30" HorizontalAlignment="Left" Height="38" Margin="340,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458" Text="AFEGIR INCIDÈNCIA"></TextBlock>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_usr" HorizontalAlignment="Left" Margin="158,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" FontFamily="Dubai" Height="36"/>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_matricula" HorizontalAlignment="Left" Margin="310,0,0,125" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="142" FontFamily="Dubai" Height="36"/>
+
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_marca" HorizontalAlignment="Left" Margin="464,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontFamily="Dubai" Height="36"/>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_model" HorizontalAlignment="Left" Margin="464,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontFamily="Dubai" Height="36"/>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_kilometratge" HorizontalAlignment="Left" Margin="158,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" FontFamily="Dubai" Height="36"/>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_anyfabricacio" HorizontalAlignment="Left" Margin="464,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" FontFamily="Dubai" Height="36"/>
+
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_descripcio" HorizontalAlignment="Left" Margin="158,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="294" FontFamily="Dubai" Height="91"/>
+
+                        <TextBox Style="{StaticResource TextBoxStyle}" Name="txtb_tipusMotor" HorizontalAlignment="Left" Margin="613,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" FontFamily="Dubai" Height="36"/>
+                        <ComboBox Name="cmbox_estat" HorizontalAlignment="Left" Margin="464,237,0,0" VerticalAlignment="Top" Width="142" Height="26">
+                            <ComboBoxItem Content="Reparacio"/>
+                            <ComboBoxItem Content="Acabat"/>
+                            <ComboBoxItem Content="Aberiat"/>
+                        </ComboBox>
+                        <Button x:Name="btn_inci_1" Style="{StaticResource boton}" Content="Afegir" HorizontalAlignment="Left" Margin="564,347,0,0" VerticalAlignment="Top" Width="240" Height="26" FontFamily="Dubai" FontWeight="Bold" BorderBrush="Black" Background="White" Click="btn_inci_1_Click">
+                        </Button>
+                        <Label Content="Usuari" HorizontalAlignment="Left" Margin="158,80,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="28" Width="44"/>
+                        <Label Content="Matricula" HorizontalAlignment="Left" Margin="310,80,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="28" Width="61"/>
+                        <Label Content="Marca" HorizontalAlignment="Left" Margin="464,80,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="28" Width="45"/>
+                        <Label Content="Kilometratge" HorizontalAlignment="Left" Margin="158,145,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="28" Width="78"/>
+                        <Label Content="Tipus de Motor" HorizontalAlignment="Left" Margin="310,147,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="28" Width="93"/>
+                        <Label Content="Model" HorizontalAlignment="Left" Margin="464,147,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="28" Width="46"/>
+                        <Label Content="Descripció" HorizontalAlignment="Left" Margin="158,210,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="27" Width="66"/>
+                        <Label Content="Estat" HorizontalAlignment="Center" Margin="0,210,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="27" Width="37"/>
+                        <Label Content="Any Fabricació" HorizontalAlignment="Left" Margin="464,263,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Height="28" Width="87"/>
+                    </Grid>
+
+                    <!-- Peces -->
+                    <Grid x:Name="gridPecesMeca" Visibility="Collapsed">
+                        <Border BorderBrush="White" Background="#FF5A626D" BorderThickness="1" HorizontalAlignment="Left" Height="118" Margin="575,100,0,0" VerticalAlignment="Top" Width="228"/>
+                        <Button Style="{StaticResource boton}" x:Name="btn_Filtrar_historial" Click="btn_Filtrar_Click_historial" Content="Filtrar" HorizontalAlignment="Left" Height="22" Margin="695,396,0,0" VerticalAlignment="Top" Width="108" />
+                        <DataGrid Style="{StaticResource dg_estilPeces}" AutoGenerateColumns="False" Background="#035A626D" x:Name="dgPeçes" HorizontalAlignment="Left" Height="256" Margin="75,90,0,0" VerticalAlignment="Top" BorderBrush="#00808080">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="130" Header="NOM PEÇA" HeaderStyle="{StaticResource dgch_estilpeces}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding nomPeça}" TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="130" Header="QUANTITAT" HeaderStyle="{StaticResource dgch_estilpeces}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding quantitat}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBlock Foreground="White" FontFamily="Cascadia Code" FontSize="30" HorizontalAlignment="Left" Height="38" Margin="75,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458" Text="PECES"></TextBlock>
+                        <TextBox x:Name="txt_Filtrar" HorizontalAlignment="Left" Height="22" Margin="574,396,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114"/>
+                        <Button Style="{StaticResource boton}" x:Name="btn_AfegirPeça" Click="btn_AfegirPeça_Click" Content="AFEGIR" HorizontalAlignment="Left" Margin="587,178,0,0" VerticalAlignment="Top" Width="202" Height="24"/>
+                        <TextBox x:Name="txt_Quantitat" HorizontalAlignment="Left" Height="20" Margin="667,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                        <TextBox x:Name="txt_NomPeça" HorizontalAlignment="Left" Height="22" Margin="667,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                        <TextBlock HorizontalAlignment="Left" Height="20" Margin="587,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14"><Run Language="es-es" Text="PEÇA"/></TextBlock>
+                        <TextBlock HorizontalAlignment="Left" Height="20" Margin="587,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontFamily="Bahnschrift" FontWeight="Bold" Foreground="White" FontSize="14"><Run Language="es-es" Text="QUANTITAT"/></TextBlock>
+                        <Border BorderBrush="White"  Background="#FF5A626D" BorderThickness="1" HorizontalAlignment="Left" Height="111" Margin="575,266,0,0" VerticalAlignment="Top" Width="228"/>
+                        <TextBlock HorizontalAlignment="Left" Height="20" Margin="588,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14"><Run Language="es-es" Text="PEÇA"/></TextBlock>
+                        <TextBox x:Name="txt_NomPeça_Eliminar" HorizontalAlignment="Left" Height="22" Margin="668,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                        <Button  Style="{StaticResource boton}" x:Name="btn_AfegirPeça_Eliminar" Click="btn_AfegirPeça_Eliminar_Click" Content="ELIMINAR" HorizontalAlignment="Left" Margin="588,343,0,0" VerticalAlignment="Top" Width="202" Height="24"/>
+                        <TextBlock HorizontalAlignment="Left" Height="20" Margin="587,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Bahnschrift"><Run Language="es-es" Text="QUANTITAT"/></TextBlock>
+                        <TextBox x:Name="txt_Quantitat_Eliminar" HorizontalAlignment="Left" Height="22" Margin="668,316,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+                        <TextBlock HorizontalAlignment="Left" Height="20" Margin="575,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14" Text="AFEGIR PEÇA" TextAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Left" Height="20" Margin="574,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="14" Text="ELIMINAR PEÇA" TextAlignment="Center"/>
+                    </Grid>
                 </Grid>
-                <Grid x:Name="gridHistorialClient" Background="LightBlue" Visibility="Hidden">
-                    
-                </Grid>
-                <Grid x:Name="gridFacturesClient" Background="Bisque" Visibility="Hidden">
-                    
-                </Grid>
-                
-                
-                
-                
-                
-            </Grid>
+            </Border>
             <!-- Estil de la barra de cerca -->
             <Border x:Name="borderNavPan" 
-            CornerRadius="8,0,0,8" 
+            CornerRadius="0,0,0,8" 
             Width="90"
             HorizontalAlignment="Left" 
             Margin="-1,0,0,0"
-            Background="White">
+            Background="White" Grid.RowSpan="2">
                 <Grid x:Name="gridNavPan" Width="90" HorizontalAlignment="Left">
                     <StackPanel x:Name="stack_nav" Margin="0,2,0,-2">
 
@@ -358,42 +590,11 @@
 
                             </ListViewItem>
 
-                            <!-- Factures -->
-
-                            <ListViewItem x:Name="btn_Factures_Client" 
-                                          HorizontalAlignment="Left"
-                                          Margin="0,15,0,15" Selected="btn_Factures_Client_Selected">
-                                <StackPanel Orientation="Horizontal"
-                                            Width="230">
-
-                                    <Image Source="Imatges\factures.png"
-                                           Width="40" 
-                                           Height="35" 
-                                           Margin="15,0,0,0"/>
-
-                                    <TextBlock Text="Factures"
-                                               Margin="25,0,0,0"
-                                               FontSize="18"
-                                               FontWeight="Bold"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"/>
-
-                                </StackPanel>
-
-                                <ListViewItem.ToolTip>
-
-                                    <ToolTip x:Name="tt_factures"
-                                             Content="Factures"
-                                             Style="{StaticResource tt_estil}"/>
-
-                                </ListViewItem.ToolTip>
-
-                            </ListViewItem>
-
                             <!-- Log Out -->
 
                             <ListViewItem HorizontalAlignment="Left"
-                                          Margin="5,180,0,15">
+                                          Margin="5,240,0,15"
+                                          Selected="btn_LogOut_Selected">
                                 <StackPanel Orientation="Horizontal"
                                             Width="230">
 
@@ -421,7 +622,7 @@
 
                             </ListViewItem>
 
-                            <!--  -->
+                            <!-- Accions i Estils -->
 
                             <ListView.ItemContainerStyle>
 
@@ -479,50 +680,16 @@
                             </ListView.ItemContainerStyle>
 
                         </ListView>
-                        
+
                         <!-- ListView MENU BOTONS MECANIC -->
                         <ListView x:Name="botonsMenuMecanic"
                                   Background="Transparent"
                                   BorderBrush="Transparent"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" Visibility="Collapsed">
 
-                            <!-- Notificacions -->
-
-                            <ListViewItem HorizontalAlignment="Left"
-                                          Margin="0,15,0,15" 
-                                          MouseEnter="ListViewItem2_MouseEnter" 
-                                          Selected="ListViewItem2_Selected"
-                                          >
-                                <StackPanel Orientation="Horizontal"
-                                            Width="230">
-
-                                    <Image Source="Imatges\campana-de-notificacion.png"
-                                           Width="40" 
-                                           Height="40" 
-                                           Margin="15,0,0,0"/>
-
-                                    <TextBlock Text="Notificacions"
-                                               Margin="25,0,0,0"
-                                               FontSize="18"
-                                               FontWeight="Bold"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"/>
-
-                                </StackPanel>
-
-                                <ListViewItem.ToolTip>
-
-                                    <ToolTip x:Name="tt_notisMecs"
-                                             Content="Notificacions"
-                                             Style="{StaticResource tt_estil}"/>
-
-                                </ListViewItem.ToolTip>
-
-                            </ListViewItem>
-                            
                             <!-- Incidencies -->
-                            <ListViewItem HorizontalAlignment="Left"
-                                          Margin="0,15,0,15" 
+                            <ListViewItem x:Name="btn_Incidencies_Meca" HorizontalAlignment="Left"
+                                          Margin="0,15,0,15" Selected="btn_Incidencies_Meca_Selected" 
                                           >
                                 <StackPanel Orientation="Horizontal"
                                             Width="230">
@@ -550,10 +717,10 @@
                                 </ListViewItem.ToolTip>
 
                             </ListViewItem>
-                            
+
                             <!-- Creacio d'incidencies -->
-                            <ListViewItem HorizontalAlignment="Left"
-                                          Margin="-5,15,0,15" 
+                            <ListViewItem x:Name="btn_NovaIncidencia_Meca" HorizontalAlignment="Left"
+                                          Margin="-5,15,0,15" Selected="btn_NovaIncidencia_Meca_Selected" 
                                           >
                                 <StackPanel Orientation="Horizontal"
                                             Width="230">
@@ -581,10 +748,11 @@
                                 </ListViewItem.ToolTip>
 
                             </ListViewItem>
-                            
+
                             <!-- Peces -->
-                            <ListViewItem HorizontalAlignment="Left"
-                                          Margin="0,15,0,15" 
+                            <ListViewItem x:Name="btn_peces_Meca" 
+                                          HorizontalAlignment="Left"
+                                          Margin="0,15,0,15" Selected="btn_peces_Meca_Selected" 
                                           >
                                 <StackPanel Orientation="Horizontal"
                                             Width="230">
@@ -612,10 +780,11 @@
                                 </ListViewItem.ToolTip>
 
                             </ListViewItem>
-                            
+
                             <!-- LogOut -->
                             <ListViewItem HorizontalAlignment="Left"
-                                          Margin="5,125,0,15">
+                                          Margin="5,165,0,15"
+                                          Selected="btn_LogOut_Selected">
                                 <StackPanel Orientation="Horizontal"
                                             Width="230">
 
@@ -698,7 +867,7 @@
 
                             </ListView.ItemContainerStyle>
 
-                        </ListView> 
+                        </ListView>
 
                     </StackPanel>
 

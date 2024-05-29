@@ -24,16 +24,15 @@
     <None Remove="Imatges\rueda-dentada.png" />
     <None Remove="Imatges\tg_Btn_default1.png" />
     <None Remove="Imatges\unnamed.png" />
-    <None Remove="logo_projectedaw-removebg.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dades\" />
     <Folder Include="Vista\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+    <PackageReference Include="MySql.Data" Version="8.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,7 +50,6 @@
     <Resource Include="Imatges\rueda-dentada.png" />
     <Resource Include="Imatges\tg_Btn_default1.png" />
     <Resource Include="Imatges\unnamed.png" />
-    <Resource Include="logo_projectedaw-removebg.png" />
   </ItemGroup>
 
 </Project>

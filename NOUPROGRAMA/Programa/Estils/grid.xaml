@@ -1,0 +1,36 @@
+﻿<!-- En tu diccionario de recursos -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Estilo para el DataGrid -->
+    <Style TargetType="DataGrid" x:Key="CustomDataGridStyle">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <!-- Aquí estableces el radio de las esquinas -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGrid">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            >
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="5" Direction="-50" Color="White" BlurRadius="5" />
+                            <!-- Definir el efecto de sombra -->
+                        </Border.Effect>
+                        <!-- Aplicando CornerRadius aquí -->
+                        <ScrollViewer x:Name="DG_ScrollViewer" Focusable="True">
+                            <ScrollViewer.Template>
+                                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                    <ScrollContentPresenter />
+                                </ControlTemplate>
+                            </ScrollViewer.Template>
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
