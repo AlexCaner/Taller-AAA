@@ -38,6 +38,10 @@ namespace Programa.Negoci
         {
             IncidenciasBD.EliminarIncidenciaBDD(idIncidencia);
         }
+        public void Remove(Incidencia inci)
+        {
+            incidencias.Remove(inci);
+        }
 
         // Implementació de l'interficie IEnumerable
         public IEnumerator<Incidencia> GetEnumerator()

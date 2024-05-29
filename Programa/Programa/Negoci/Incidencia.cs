@@ -27,6 +27,7 @@ namespace Programa.Negoci
         }
         public Incidencia(int id, string usuari, string matricula, string descripcio, string estat)
         {
+            this.id = id;
             this.usuari = usuari;
             this.matricula = matricula;
             this.descripcio = descripcio;

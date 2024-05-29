@@ -28,6 +28,14 @@ namespace Programa.Classes
             return personesBD.TrobarClientBDD(usuari);
 
         }
+        public bool TrobarUsuariClient(string usuari, string contrasenya)
+        {
+            return personesBD.TrobarUsuariClient(usuari, contrasenya);
+        }
+        public bool TrobarUsuariMecanic(string usuari, string contrasenya)
+        {
+            return personesBD.TrobarUsuariMecanic(usuari, contrasenya);
+        }
         public IEnumerator<Persona> GetEnumerator()
         {
             return persones.GetEnumerator();

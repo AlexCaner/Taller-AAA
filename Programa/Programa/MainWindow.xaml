@@ -14,6 +14,11 @@
         FontFamily="{DynamicResource MaterialDesignFont}" x:Class="Programa.MainWindow"
         mc:Ignorable="d"
         Title="GRIDNOTIFICACIONS" Height="450" Width="800">
+    <Window.Resources>
+        <BitmapImage x:Key="IconoLlegit" UriSource="/Estils/read.png"/>
+        <BitmapImage x:Key="IconoNoLlegit" UriSource="/Estils/unread.png"/>
+        <BitmapImage x:Key="IconoEliminar" UriSource="/Estils/delete.png"/>
+    </Window.Resources>
     <Grid x:Name="grid_noti_" Background="#2E333A">
         <Grid HorizontalAlignment="Left" Height="434" VerticalAlignment="Center" Width="148" Background="White">
             <Image x:Name="img_main_logo" HorizontalAlignment="Left" Height="63" Margin="42,10,0,0" VerticalAlignment="Top" Width="68" Source="/logo_projectedaw-removebg.png"/>
@@ -38,14 +43,14 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Name="noti_btn_llegit" Style="{StaticResource noti_btn}" Tag="/Estils/read.png" Click="NotiBtnLlegit_Click" Margin="5">
-                                    <TextBlock Text="UR"/>
+                                <Button Name="noti_btn_llegit" Style="{StaticResource noti_btn}"  Click="NotiBtnLlegit_Click" Margin="5">
+                                    <Image Source="{StaticResource IconoLlegit}" Width="20" Height="20"/>
                                 </Button>
                                 <Button Name="noti_btn_nollegit" Style="{StaticResource noti_btn}" Tag="/Estils/unread.png" Click="NotiBtnNoLlegit_Click" Margin="5">
-                                    <TextBlock Text="R" />
+                                    <Image Source="/Estils/unread.png"/>
                                 </Button>
                                 <Button Name="noti_btn_eliminar" Style="{StaticResource noti_btn}" Tag="/Estils/delete.png" Click="NotiBtnEliminar_Click" Margin="5">
-                                    <TextBlock Text="X"/>
+                                    <Image Source="/Estils/delete.png"/>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>

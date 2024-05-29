@@ -36,6 +36,14 @@ namespace Programa.Negoci
         {
             notificacionsBD.UpdateNotiBDD(idNotificacio, estat);
         }
+        public void Add(Notificacio notificacio)
+        {
+            notificacions.Add(notificacio);
+        }
+        public void Remove(Notificacio n)
+        {
+            notificacions.Remove(n);
+        }
         public void DeleteNoti(int idNotificacio)
         {
             notificacionsBD.EliminarNotiBDD(idNotificacio);

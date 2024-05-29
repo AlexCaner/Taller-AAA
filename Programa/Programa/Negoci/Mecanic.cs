@@ -13,7 +13,7 @@ namespace Programa.Classes
         public static int numMecanics { get; set; }
         //Constructor
         public Mecanic() : base() { }
-        public Mecanic(int idMecanic, string nom, string cognom, string direccio, string correu, int telefon, string usuari) : this()
+        public Mecanic(int idMecanic, string nom, string cognom, string direccio, string correu, int telefon, string usuari, string contrasenya) : this()
         {
             this.idMecanic = idMecanic;
             this.nom = nom;
@@ -21,6 +21,8 @@ namespace Programa.Classes
             this.direccio = direccio;
             this.correu = correu;
             this.telefon = telefon;
+            this.usuari = usuari;
+            this.contrasenya = contrasenya;
         }
     }
 }

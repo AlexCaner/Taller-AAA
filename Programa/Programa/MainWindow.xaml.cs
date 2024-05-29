@@ -1,4 +1,5 @@
-﻿using Programa.Negoci;
+﻿using Programa.Classes;
+using Programa.Negoci;
 using System.Data;
 using System.Text;
 using System.Windows;
@@ -18,19 +19,32 @@ namespace Programa
     {
         //Creem els objectes que gestionaran les llistes de notificacions: totes les notificacions (llistanotificacions) i la llista amb filtres (llistaFiltreNotificacions)
         Notificacions llistanotificacions; Notificacions llistaFiltreNotificacions;
-
+        Persones persones;
+        string loginU = "johndoe"; string loginC = "password123";
         public MainWindow()
         {
             InitializeComponent();
             //Initzialitcem les llistes
             llistanotificacions = new Notificacions();
             llistaFiltreNotificacions = new Notificacions();
+            persones = new Persones();
 
             //Inserir en la llista notificacions totes les notificacions de la BD
             llistanotificacions.TotesLesNotis();
 
             //Afegir les notificacions en el GRID
             dtg_noti_1.ItemsSource = llistanotificacions;
+            if(persones.TrobarUsuariClient(loginU, loginC))
+            {
+                //Interfaz cliente | Guardamos el cliente 
+                Cliente cliente = persones.TrobarClient(loginU);
+            }
+            else if(persones.TrobarUsuariMecanic(loginU, loginC))
+            {
+                //Interfaz Mecanico | Guardamos el mecanico
+                Mecanic mecanic = persones.TrobarMecanic(loginU);
+            }
+           
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -78,7 +92,7 @@ namespace Programa
                 {
                     if (n.llegida == 0) 
                     {
-                        llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
+                        llistaFiltreNotificacions.Add(n);
                     }
                 }
             }
@@ -90,7 +104,7 @@ namespace Programa
                 {
                     if (n.llegida == 1)
                     {
-                        llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
+                        llistaFiltreNotificacions.Add(n);
                     }
                 }
             }
@@ -98,7 +112,7 @@ namespace Programa
             //Si totes esta marcada (Filtre)
             else foreach (Notificacio n in llistanotificacions)
                 {
-                    llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
+                    llistaFiltreNotificacions.Add(n);
                 }
         }
 
@@ -135,24 +149,22 @@ namespace Programa
             if (sender is Button button)
             {
                 //Creem una nottificacio apuntant al espai de memoria que ocupa en la linia del DataGrid
-                var notifiacio = button.DataContext as Notificacio;
+                var notificacio = button.DataContext as Notificacio;
 
                 //Si la notificació no es vuida
-                if (notifiacio != null)
+                if (notificacio != null)
                 {
                     //Eliminem la notificació de la BD
-                    llistanotificacions.DeleteNoti(notifiacio.idNotificacio);
+                    llistanotificacions.DeleteNoti(notificacio.idNotificacio);
+                    llistanotificacions.Remove(notificacio);
+                    dtg_noti_1.ItemsSource = "";
+                    if (rdb_noti_3.IsChecked == true)
+                        dtg_noti_1.ItemsSource = llistanotificacions;
+                    else dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
                 }
                 
                 //Comprovem els filtres
                 RadioButtonsComprovar();
-
-                //Actualitzem el DataGrid
-                dtg_noti_1.ItemsSource = "";
-                if (rdb_noti_3.IsChecked == true)
-                    dtg_noti_1.ItemsSource = llistanotificacions;
-                else dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
-
             }
         }
         private void btn_noti_cercador_Click(object sender, RoutedEventArgs e)
@@ -166,11 +178,11 @@ namespace Programa
                 //Si la matricula coincideix amb el text que ha introduit l'usuari, s'insereix en la llista
                 if (n.matricula == txtb_noti_cercador.Text)
                 {
-                    llistaFiltreNotificacions.InsertNoti(n.llegida, n.usuari, n.matricula, n.descripcio);
+                    llistaFiltreNotificacions.Add(n);
                 }
             }
 
-            //Actualitzem el DataGrid
+            //Actualitzem el DataGrid 
             dtg_noti_1.ItemsSource = "";
             dtg_noti_1.ItemsSource = llistaFiltreNotificacions;
         }

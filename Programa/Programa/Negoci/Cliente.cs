@@ -15,7 +15,7 @@ namespace Programa.Classes
 
         //Constructors
         public Cliente() : base() { }
-        public Cliente(int idClient, string nom, string cognom, string direccio, string correu, int telefon, string usuari) : this()
+        public Cliente(int idClient, string nom, string cognom, string direccio, string correu, int telefon, string usuari, string contrasenya) : this()
         {
             this.idClient = idClient;
             this.nom = nom;
@@ -23,6 +23,8 @@ namespace Programa.Classes
             this.direccio = direccio;
             this.correu = correu;
             this.telefon = telefon;
+            this.usuari = usuari;
+            this.contrasenya = contrasenya;   
         }
     }
 }

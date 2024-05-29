@@ -50,7 +50,6 @@ namespace Programa
 
                 // Transformar el XML a HTML usando XSLT
                 factura.TransformarXMLaHTML("factura.xsl", "factura.html");
-                Factures.
             }
         }
     }

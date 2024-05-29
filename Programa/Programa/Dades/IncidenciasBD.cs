@@ -106,7 +106,8 @@ namespace Programa.Dades
                     string sql = $"UPDATE incidencia SET estat = @estat WHERE idIncidencia = @idIncidencia";
                     MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
                     sqlCommand.Parameters.AddWithValue("@idIncidencia", idIncidencia);
-                    sqlCommand.Parameters.AddWithValue("@usuari", usuari);
+                    sqlCommand.Parameters.AddWithValue("@estat", estat);
+
                     int rowsAffected = sqlCommand.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {

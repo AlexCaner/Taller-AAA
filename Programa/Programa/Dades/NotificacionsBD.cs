@@ -53,7 +53,7 @@ namespace Programa.Dades
                 try
                 {
                     connection.Open();
-                    string sql = $"INSERT INTO notificacions (llegida, usuari, matricula, descripcio) VALUES (@llegida, @usuari, @matricula, @descripcio)";
+                    string sql = "INSERT INTO notificacions (llegida, usuari, matricula, descripcio) VALUES (@llegida, @usuari, @matricula, @descripcio)";
                     MySqlCommand sqlCommand = new MySqlCommand(sql, connection);
                     sqlCommand.Parameters.AddWithValue("@llegida", llegida);
                     sqlCommand.Parameters.AddWithValue("@usuari", usuari);
@@ -62,12 +62,16 @@ namespace Programa.Dades
                     int rowsAffected = sqlCommand.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
-
-                    };
+                        Console.WriteLine("Notificación insertada correctamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se pudo insertar la notificación.");
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error al insertar la notificación: " + ex.ToString());
                 }
                 finally
                 {
@@ -75,6 +79,7 @@ namespace Programa.Dades
                 }
             }
         }
+
         public void EliminarNotiBDD(int idNotificacio)
         {
             MySqlConnection connection = connexio.ConnexioBDD();

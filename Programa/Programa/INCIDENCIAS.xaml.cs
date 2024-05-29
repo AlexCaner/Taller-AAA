@@ -4,6 +4,7 @@ using Programa.Negocio;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Programa
 {
@@ -22,6 +23,7 @@ namespace Programa
 
             //Inserim totes les incidencies a la llista.
             incidencies.TotesLesIncidencies();
+            MessageBox.Show(incidencies.Count().ToString());
 
             //Enllaçem la llista amb el ItemsControl per crear la part visual dels objectes.
             IncidenciasItemsControl.ItemsSource = incidencies;
@@ -31,6 +33,8 @@ namespace Programa
         {
             if (sender is FrameworkElement element && element.DataContext is Incidencia incidencia)
             {
+                MessageBox.Show(incidencia.id.ToString());
+
                 //MessageBox on confirmarem l'operació
                 MessageBoxResult result = MessageBox.Show(
                     "¿Estas segur que vols eliminar l'incidencia?",
@@ -50,18 +54,20 @@ namespace Programa
                     client = persones.TrobarClient(incidencia.usuari);
 
                     //Inserim els detalls del client a la factura i la generem.
-                    factura.GenerarFacturaXML(client.nom, client.direccio, client.telefon.ToString(), client.correu, DateTime.Now.ToString(), "numeroRandom", "199,03€");
+                    //factura.GenerarFacturaXML(client.nom, client.direccio, client.telefon.ToString(), client.correu, DateTime.Now.ToString(), "numeroRandom", "199,03€");
 
                     //Transformem el XML a HTML fent servir el XSL
-                    factura.TransformarXMLaHTML("documents/FacturaXSL.xsl", "facturaArxiu");
+                    //factura.TransformarXMLaHTML("documents/FacturaXSL.xsl", "facturaArxiu");
 
                     //Inserim a la Base de Dades una nova notificació
                     notificacions.InsertNoti(notificacio.llegida, notificacio.usuari, notificacio.matricula, notificacio.descripcio);
 
                     //Inserir BD factures
 
+                    MessageBox.Show(incidencia.id.ToString());
                     //Eliminem l'incidencia ja que no l'haurem de gestionar més
                     incidencies.DeleteIncidencia(incidencia.id);
+                    incidencies.Remove(incidencia);
 
                     //Actualitzem el panell d'Items
                     IncidenciasItemsControl.ItemsSource = null;
@@ -76,6 +82,9 @@ namespace Programa
                 }
             }
         }
+
+
+
 
         private void Accion2_Click(object sender, RoutedEventArgs e)
         {
@@ -104,6 +113,7 @@ namespace Programa
 
                 // Crear una nova notificació
                 Notificacio notificacio = new Notificacio(incidencia.usuari, incidencia.matricula, estatReparacio);
+                notificacions.InsertNoti(notificacio.llegida, notificacio.usuari, notificacio.matricula, notificacio.descripcio);
 
                 // Mostrem un MessageBox confirmant la notificació
                 MessageBox.Show($"La notificació s'ha creat correctament.", "Confirmació de notificació", MessageBoxButton.OK, MessageBoxImage.Information);
